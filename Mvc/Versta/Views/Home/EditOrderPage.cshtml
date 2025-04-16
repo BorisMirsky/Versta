@@ -1,0 +1,109 @@
+﻿@* @model Versta.Models.EditOrderModel   *@
+@model Versta.Models.OrderModel 
+
+
+
+@{
+    ViewData["Title"] = "EditOrderPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="@Url.Content("~/css/style.css")" rel="stylesheet" type="text/css" />
+
+
+
+<br />
+<div class="view">
+
+    <div class="row form-horizontal">
+        <div class="col-md-12">
+            <p align="center"><h4>Редактирование заказа</h4></p>
+            <br />
+
+            <div id="fieldPass" style="display: block;">
+
+                @using (Html.BeginForm("EditOrderPage", "Home"))
+                { 
+                @Html.AntiForgeryToken() 
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })     
+                
+                <div class="form-group">  
+                    <h5>Город отправителя </h5> 
+                    <div class="editor-field"> 
+                        @Html.EditorFor(model => @Model.Order!.city_from) 
+                        @Html.ValidationMessageFor(model => model.CityFrom)  
+                    </div>
+                </div>
+                <br />
+
+                <hr width="300" />
+                <div class="form-group">
+                    <h5>Адрес отправителя  </h5>
+                    <div class="col-sm-3">
+                        @Html.EditorFor(model => @Model.Order!.address_from)
+                        @Html.ValidationMessageFor(model => model.AdressFrom)
+                    </div>
+                </div>
+                <br />
+
+                <hr width="300" />
+                <div class="form-group">
+                    <h5>Город получателя  </h5>
+                    <div class="col-sm-3">
+                        @Html.EditorFor(model => @Model.Order!.city_to)
+                        @Html.ValidationMessageFor(model => model.CityFrom)
+                    </div>
+                </div>
+                <br />
+
+                <hr width="300" />
+                <div class="form-group">
+                    <h5>Город получателя </h5>
+                    <div class="col-sm-3">
+                        @Html.EditorFor(model => @Model.Order!.address_to)
+                        @Html.ValidationMessageFor(model => model.AdressTo)
+                    </div>
+                </div>
+                <br />
+
+                <hr width="300" />
+                <div class="form-group">
+                    <h5>Вес груза </h5>
+                    <div class="col-sm-3">
+                        @Html.EditorFor(model => @Model.Order!.weight)
+                        @Html.ValidationMessageFor(model => model.Weight)
+                    </div>
+                </div>
+                    <br />
+
+                <hr width="300" />
+                <div class="form-group">
+                    <h5>Дата забора груза </h5>
+                    <div class="col-sm-3">
+                        @Html.EditorFor(model => @Model.Order!.date)
+                        @Html.ValidationMessageFor(model => model.Date)
+                    </div>
+                </div>
+                    <br />
+                    <hr width="300" />
+                    <br />
+                    <br />
+
+                    <form>
+                        <button asp-controller="Home"
+                                asp-action="EditOrder"
+                                method="post"
+                                asp-route-id="@Model.Order!.id"
+                                class="btn btn-outline-warning">
+                            Сохранить изменения
+                        </button>
+                    </form>
+
+           }
+        </div>
+    </div>
+  </div>
+  </div>
+
+
+
