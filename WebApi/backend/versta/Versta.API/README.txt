@@ -1,12 +1,8 @@
-backend работает корректно. Это проверено:
+backend работает корректно. Проверено:
 1) дебагом при взаимодействии с фронтендом.
 2) Swagger - все 5 методов в порядке. 
 
-Единственная проблема: при ручном обновлении данных (PUT) есть предупреждение (не ошибка)
+Текущие проблемы: 
+1) При ручном обновлении данных (PUT) в поле Дата надо понять в каком формате ставить значение. Сделаю немного позже.
+2) При создании нового заказа поле SpecialNote необязательно к заполнению, но при выдаст ошибку если его оставить пустым.
 
-Cannot write DateTime with Kind=Unspecified to PostgreSQL type 
-timestamp with time zone', only UTC is supported.
- Note that it's not possible to mix DateTimes 
-with different Kinds in an array, range, or multirange. (Parameter 'value')
-
-Т.е. в поле ДатаВремя надо понять как менять значение. Сделаю немного позже.

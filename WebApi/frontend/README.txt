@@ -33,14 +33,16 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 
 
 ##############################################################################
+
 Из пяти методов на фронтенде:
-- работает: get all, post, delete*
-- делается: put*
-- не понимаю как делать: get one
-
-* - нельзя полностью и корректно сделать без get one, поэтому немного в mock формате.
+- работает: get all,  get one, post, delete
+- делается: put
 
 
+
+Текущие проблемы:
+1) передалать поведение поля SpecialNote 
+2) убрать таймзону при создании Date (backend)
 
 
 

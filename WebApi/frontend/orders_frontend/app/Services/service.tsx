@@ -20,18 +20,30 @@ export const getOneOrder = async (id: string) => {
     const response = await fetch("http://localhost:5134/orders/" + id);   
     //console.log('service getOneOrder id', response.json());
     return response.json();
+        //.then(response => {
+        //    console.log('getOneOrder response ', response);
+        //}).catch(err => {
+        //    console.log('getOneOrder err ', err);
+        //});
 };
 
 
 export const createOrder = async (orderRequest: OrderRequest) => {
-    //console.log('createOrder from service ', orderRequest); 
     await fetch("http://localhost:5134/orders/", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
         },
         body: JSON.stringify(orderRequest)
-    });
+    });  //.then(response => {
+    //    return response.json();
+    //})
+    //    .then(response => {
+    //        console.log('createOrder response ', response);
+    //    }).catch(err => {
+    //        console.log('createOrder err ', err);
+    //    });
 }
 
 

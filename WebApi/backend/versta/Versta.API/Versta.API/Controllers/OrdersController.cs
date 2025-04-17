@@ -34,6 +34,7 @@ namespace Versta.API.Controllers
         {
             var order = await _ordersService.GetOneOrder(id);
             return Ok(order);
+            //return Redirect("http://localhost:3000/oneorder/"  + id);
         }
 
         [HttpPost]
@@ -56,6 +57,7 @@ namespace Versta.API.Controllers
             }
             var newOrder = await _ordersService.CreateOrder(order);
             return Ok(newOrder);
+            //return Redirect("http://localhost:3000/oneorder/");
         }
 
 

@@ -6,25 +6,28 @@ import { Order } from "@/app/Models/Order";
 import { useEffect, useState } from "react";   
 import Card from "antd/es/card/Card";
 import Button from "antd/es/button/button";
-//import { router } from 'next/navigation'; // router'
 import { useRouter } from 'next/navigation';
+//import { useSearchParams } from 'next/navigation';
+
 
 
 export default function OneOrder() { 
-    //const [orders, setOrder] = useState<Order>([]);  
     const [order, setOrder] = useState<Order>();
-    const id = "8c6af0f6-4ced-4a39-bfff-a952f8a56bf2"
-    const router = useRouter()
+    const router = useRouter();
+    const id = router.query;
+
+    //const searchParams = useSearchParams();
+    //const search = searchParams.get('search');
+    //console.log('OneOrder search: ', search, router.query);
 
 
     useEffect(() => {
         const getOrder = async () => {
             const responce = await getOneOrder(id);
             setOrder(responce);
-            //console.log('OneOrder responce: ', responce);
         };
         getOrder();
-    }, []);  
+    });     // ,[]);
 
     const title = "Заказ id = " + order?.id;  //"Заказ id=${id}"
 
