@@ -18,13 +18,8 @@ export const getAllOrders = async () => {
 
 export const getOneOrder = async (id: string) => {
     const response = await fetch("http://localhost:5134/orders/" + id);   
-    //console.log('service getOneOrder id', response.json());
+    //console.log('service getOneOrder id', response);
     return response.json();
-        //.then(response => {
-        //    console.log('getOneOrder response ', response);
-        //}).catch(err => {
-        //    console.log('getOneOrder err ', err);
-        //});
 };
 
 
@@ -47,15 +42,22 @@ export const createOrder = async (orderRequest: OrderRequest) => {
 }
 
 
-//export const updateOrder = async (id: string, orderRequest: OrderRequest) => {
-//    await fetch('h ttp://localhost:5134/orders/' + id, {
-//        method: 'PUT',
-//        headers: {
-//            'Content-Type': 'application/json'
-//        },
-//        body: JSON.stringify(orderRequest)
-//    });
-//}
+export const updateOrder = async (id: string, orderRequest: OrderRequest) => {
+    await fetch('http://localhost:5134/orders/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderRequest)
+    }).then(response => {
+        return response.json();
+    })
+        .then(response => {
+            console.log('createOrder response ', response);
+        }).catch(err => {
+            console.log('createOrder err ', err);
+        });
+}
 
 
 export const deleteOrder = async (id: string) => {

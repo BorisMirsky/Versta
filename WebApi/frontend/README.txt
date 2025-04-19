@@ -43,7 +43,8 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 Текущие проблемы:
 1) передалать поведение поля SpecialNote 
 2) убрать таймзону при создании Date (backend)
-
+3) UpdateOrder - передавать данные в input правильно, надо так setFieldsValue
+4) UpdateOrder & OneOrder: router.query - неправильно, делать через useSearchParams
 
 
 

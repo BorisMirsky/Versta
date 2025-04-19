@@ -1,10 +1,10 @@
 ﻿"use client"
 
 import { Table } from "antd";
-import { getAllOrders } from "@/app/Services/service";    //getOneOrder
+import { getAllOrders } from "@/app/Services/service";    
 import { Order } from "@/app/Models/Order";    
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'; // router'
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import "../globals.css";
 
@@ -13,11 +13,8 @@ import "../globals.css";
 export default function AllOrders() {
     const [orders, setOrders] = useState<Order[]>([]);
     const router = useRouter();
-    const handleClick = async (id1: string) => {   //id: string
-        console.log("000");
+    const handleClick = async (id1: string) => {   
         router.query = id1
-        //router.push("/oneorder");
-        //await getOneOrder(id);
     };
 
     const columns = [

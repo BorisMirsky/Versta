@@ -35,10 +35,10 @@ namespace Versta.Core.Models
         public static (Order order, string Error) Create(
             Guid id, string cityFrom, string adressFrom,
             string cityTo, string adressTo, decimal weight,
-            DateTime date, string specialNote)
+            DateTime date, string? specialNote)
         {
             var error = string.Empty;
-            if (specialNote.Length > MAX_NOTE_LEN)
+            if (specialNote?.Length > MAX_NOTE_LEN)
             {
                 error = "Сократите примечание до 100 знаков";
             }

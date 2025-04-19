@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Card from "antd/es/card/Card";
 import Button from "antd/es/button/button";
 import { useRouter } from 'next/navigation';
+//import Router from 'next/router'
 //import { useSearchParams } from 'next/navigation';
 
 
@@ -27,14 +28,20 @@ export default function OneOrder() {
             setOrder(responce);
         };
         getOrder();
-    });     // ,[]);
+    });     
 
-    const title = "Заказ id = " + order?.id;  //"Заказ id=${id}"
+    const title = "Заказ id = " + order?.id;  
 
     const handleDelete = async (id: string) => {
         await deleteOrder(id);
         router.push("allorders");
     };
+
+    //Router.push({ pathname: to, query: { user_id: this.props.data.member.user.id } }, as, options);
+    const handleUpdate = async () => {
+        router.push("updateorder")  //{pathname: "/oneorder", query: { id: id }});
+    };
+
 
     return (
         <div >
@@ -62,7 +69,7 @@ export default function OneOrder() {
                     <br></br>
                     <div className="card_buttons">
                         <Button
-                            //onClick={() => handleOpen(book)}
+                            onClick={() => handleUpdate()}
                             style={{ flex: 1 }}
                         >
                             Редактировать</Button>
