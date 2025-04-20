@@ -45,7 +45,11 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 2) убрать таймзону при создании Date (backend)
 3) UpdateOrder - передавать данные в input правильно, надо так setFieldsValue
 4) UpdateOrder & OneOrder: router.query - неправильно, делать через useSearchParams
-
+5) Возможность поиска на странице allorders
+6) работа с ролями:
+   - админ есть в системе по дефолту
+   - он регит манагеров, они могут всё (get all, get one, delete, update, post)
+   - просто юзеры только заходят и смотрят (get all, get one)
 
 
 
