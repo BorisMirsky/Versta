@@ -8,19 +8,17 @@ import Card from "antd/es/card/Card";
 import Button from "antd/es/button/button";
 import { useRouter } from 'next/navigation';
 //import Router from 'next/router'
-//import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 
 
 export default function OneOrder() { 
     const [order, setOrder] = useState<Order>();
     const router = useRouter();
-    const id = router.query;
 
-    //const searchParams = useSearchParams();
-    //const search = searchParams.get('search');
-    //console.log('OneOrder search: ', search, router.query);
-
+    const searchParams = useSearchParams();
+    const params = new URLSearchParams(searchParams);
+    const id = params.toString().split("=")[1];
 
     useEffect(() => {
         const getOrder = async () => {
@@ -37,9 +35,8 @@ export default function OneOrder() {
         router.push("allorders");
     };
 
-    //Router.push({ pathname: to, query: { user_id: this.props.data.member.user.id } }, as, options);
     const handleUpdate = async () => {
-        router.push("updateorder")  //{pathname: "/oneorder", query: { id: id }});
+        router.push("/updateorder?id=" + id);
     };
 
 

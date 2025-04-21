@@ -6,14 +6,16 @@ import { Order } from "@/app/Models/Order";
 import { FormProps, Button, Form, Input, InputNumber, DatePicker, Space } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";  
+import { useSearchParams } from 'next/navigation';
 
 
-export default function UpdateOrder() {
+export default function UpdateOrder() {   
     const [order, setOrder] = useState<Order>();
     const router = useRouter();
-    const id = router.query;
-
-    //console.log('id: ', id);
+    //const id = router.query;
+    const searchParams = useSearchParams();
+    const params = new URLSearchParams(searchParams);
+    const id = params.toString().split("=")[1];
 
     useEffect(() => {
         const getOrder = async () => {
@@ -29,10 +31,9 @@ export default function UpdateOrder() {
 
     const onFinish: FormProps<OrderRequest>['onFinish'] = (values) => {
         updateOrder(id, values);
-        router.push("/allorders");        
+        router.push("/oneorder?id=" + id);        
     }
 
-    //const fields = form.getFieldsValue()
 
     return (
         <div >
@@ -51,22 +52,20 @@ export default function UpdateOrder() {
                 autoComplete="off"
             >
                 <div>
-                {/*{fields.map(field => (*/}
                 <Form.Item<OrderRequest>
-                    /*{...field}*/
                     label="City From"
                     name="cityFrom"
                     rules={[{ required: true, message: 'Please input city from!' }]}
                 >
-                        <Input >{order?.cityFrom}</Input>
+                        <Input/>
                 </Form.Item>
 
                 <Form.Item<OrderRequest>
                     label="Adress From"
                     name="adressFrom"
                     rules={[{ required: true, message: 'Please input adress from!' }]}
-                >
-                    <Input />
+                    >
+                        <Input/>
                 </Form.Item>
 
                 <Form.Item<OrderRequest>
@@ -108,7 +107,6 @@ export default function UpdateOrder() {
                 >
                     <Input.TextArea />
                 </Form.Item>
-                {/*))}*/}
                 </div>
 
                 <Form.Item label={null}>

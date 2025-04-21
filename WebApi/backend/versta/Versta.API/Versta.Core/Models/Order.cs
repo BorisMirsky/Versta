@@ -30,7 +30,7 @@ namespace Versta.Core.Models
         public string CityTo { get; } = string.Empty;
         public string AdressTo { get; } = string.Empty;
         public decimal Weight { get; } = 0;
-        public DateTime Date { get; }
+        public DateTime Date { get; }       
         public string? SpecialNote { get; } = string.Empty;
         public static (Order order, string Error) Create(
             Guid id, string cityFrom, string adressFrom,
@@ -42,6 +42,7 @@ namespace Versta.Core.Models
             {
                 error = "Сократите примечание до 100 знаков";
             }
+            //var dateTimeOffset = DateTimeOffset.Parse(date.ToString(), null);
             var order = new Order(id, cityFrom, adressFrom, cityTo, adressTo,
                 weight, date, specialNote);
             return (order, error);

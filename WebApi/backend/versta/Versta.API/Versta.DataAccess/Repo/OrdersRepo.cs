@@ -80,12 +80,23 @@ namespace Versta.DataAccess.Repo
             return id;
         }
 
-        public async Task<Guid> Delete(Guid id)
+        //public async Task<Guid> Delete(Guid id)
+        public async Task<List<Order>> Delete(Guid id)     //Task<Guid>
         {
             await _context.Orders
                 .Where(o => o.Id == id)
                 .ExecuteDeleteAsync();
-            return id;
+            //return id;
+            var orderEntities = await _context.Orders
+                .AsNoTracking()
+                .ToListAsync();
+            var orders = orderEntities
+                .Select(o => Order.Create(o.Id, o.CityFrom, o.AdressFrom,
+                                          o.CityTo, o.AdressTo, o.Weight,
+                                          o.Date, o.SpecialNote).order)
+                .ToList();
+
+            return orders;
         }
     }
 }

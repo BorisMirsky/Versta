@@ -38,21 +38,33 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 - работает: get all,  get one, post, delete
 - делается: put
 
+TODO
+
+                       В 1ю очередь
+
+1) понять и передалать поведение поля SpecialNote 
+
+2) понять и передалать поведение поля Date (backend)
+         (убрать таймзону при создании/отображении)
+
+3) UpdateOrder - передавать данные в input правильно, надо так setFieldsValue     ?
+
+5) Delete отвалился 
+
+6) переделать чтобы после создания переходить на oneorder?id=...
+   как тут получать id?
 
 
-Текущие проблемы:
-1) передалать поведение поля SpecialNote 
-2) убрать таймзону при создании Date (backend)
-3) UpdateOrder - передавать данные в input правильно, надо так setFieldsValue
-4) UpdateOrder & OneOrder: router.query - неправильно, делать через useSearchParams
-5) Возможность поиска на странице allorders
-6) работа с ролями:
+                      Во 2ю очередь
+
+1) Возможность поиска на странице allorders
+
+2) работа с ролями:
    - админ есть в системе по дефолту
    - он регит манагеров, они могут всё (get all, get one, delete, update, post)
    - просто юзеры только заходят и смотрят (get all, get one)
 
-
-
+3) Нужна обработка при передаче отсутствующего айди
 
 
 

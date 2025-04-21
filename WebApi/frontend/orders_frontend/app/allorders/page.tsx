@@ -4,18 +4,17 @@ import { Table } from "antd";
 import { getAllOrders } from "@/app/Services/service";    
 import { Order } from "@/app/Models/Order";    
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import "../globals.css";
 
 
-
 export default function AllOrders() {
     const [orders, setOrders] = useState<Order[]>([]);
-    const router = useRouter();
-    const handleClick = async (id1: string) => {   
-        router.query = id1
-    };
+
+    //const handleClick = async (id1: string) => {   
+    //    console.log(id1)
+        //router.query = id1
+    //};
 
     const columns = [
         {
@@ -39,7 +38,7 @@ export default function AllOrders() {
                 >
                     <a
                         className="tableLink"
-                        onClick={() => handleClick(id)}
+                        //onClick={() => handleClick(id)}
                     >
                         {id}
                     </a>
@@ -75,6 +74,11 @@ export default function AllOrders() {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
+        },
+        {
+            title: 'Special Note',
+            dataIndex: 'specialnote',
+            key: 'specialnote',
         }
     ]
 
@@ -88,15 +92,16 @@ export default function AllOrders() {
 
     const data = orders.map((order, index) => ({
         key: index,
-        n: (index+1),
+        n: (index + 1),
         uniqid: order.id,
         cityfrom: order.cityFrom,
         adressfrom: order.adressFrom,
         cityto: order.cityTo,
         adressto: order.adressTo,
         weight: order.weight,
-        date: order.date
-    })) 
+        date: order.date,
+        specialnote: order.specialnote
+    })); 
 
 
     return (

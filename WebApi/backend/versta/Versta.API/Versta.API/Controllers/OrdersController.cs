@@ -34,7 +34,6 @@ namespace Versta.API.Controllers
         {
             var order = await _ordersService.GetOneOrder(id);
             return Ok(order);
-            //return Redirect("http://localhost:3000/oneorder/"  + id);
         }
 
         [HttpPost]
@@ -57,7 +56,6 @@ namespace Versta.API.Controllers
             }
             var newOrder = await _ordersService.CreateOrder(order);
             return Ok(newOrder);
-            //return Redirect("http://localhost:3000/oneorder/");
         }
 
 
@@ -73,7 +71,8 @@ namespace Versta.API.Controllers
 
 
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult<Guid>> DeleteOrder(Guid id)
+        //public async Task<ActionResult<Guid>> DeleteOrder(Guid id)
+        public async Task<ActionResult<List<OrdersResponse>>> DeleteOrder(Guid id)
         {
             return Ok(await _ordersService.DeleteOrder(id));
         }

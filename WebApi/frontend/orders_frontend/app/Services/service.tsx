@@ -1,5 +1,4 @@
-﻿//import { useRouter } from 'next/navigation'; // 'next/router';
-
+﻿
 export interface OrderRequest {
     cityFrom: string;
     adressFrom: string;
@@ -18,7 +17,6 @@ export const getAllOrders = async () => {
 
 export const getOneOrder = async (id: string) => {
     const response = await fetch("http://localhost:5134/orders/" + id);   
-    //console.log('service getOneOrder id', response);
     return response.json();
 };
 
@@ -49,19 +47,27 @@ export const updateOrder = async (id: string, orderRequest: OrderRequest) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(orderRequest)
-    }).then(response => {
-        return response.json();
-    })
-        .then(response => {
-            console.log('createOrder response ', response);
-        }).catch(err => {
-            console.log('createOrder err ', err);
-        });
+    });
+    //}).then(response => {
+    //    return response.json();
+    //})
+    //    .then(response => {
+    //        console.log('createOrder response ', response);
+    //    }).catch(err => {
+    //        console.log('createOrder err ', err);
+    //    });
 }
 
 
 export const deleteOrder = async (id: string) => {
     await fetch('http://localhost:5134/orders/' + id, {
         method: 'DELETE'
+    }).then(response => {
+        return response.json();
     });
+        //.then(response => {
+        //    console.log('deleteOrder response ', response);
+        //}).catch(err => {
+        //    console.log('deleteOrder err ', err);
+        //});
 }

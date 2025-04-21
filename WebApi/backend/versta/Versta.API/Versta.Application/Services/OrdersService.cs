@@ -41,9 +41,11 @@ namespace Versta.Application.Services
                                             date, specialNote);
         }
 
-        public async Task<Guid> DeleteOrder(Guid id)
+        //public async Task<Guid> DeleteOrder(Guid id)
+        public async Task<List<Order>> DeleteOrder(Guid id)
         {
             return await _ordersRepo.Delete(id);
+            //_ordersRepo.Delete(id);
         }
     }
 }

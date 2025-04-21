@@ -18,9 +18,8 @@ export default function NewOrder() {
     }
 
     const onFinish: FormProps<OrderRequest>['onFinish'] = (values) => {
-        //console.log('onFinish:', values);
         createOrder(values);
-        router.push("/allorders");         // -> neworder
+        router.push("/allorders");       
     }
 
     return (

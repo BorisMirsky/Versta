@@ -12,6 +12,7 @@ namespace Versta.Core.Abstractions
         Task<Guid> Update(Guid id, string cityFrom, string adressFrom,
             string cityTo, string adressTo, decimal weight,
             DateTime date, string specialNote);
-        Task<Guid> Delete(Guid id);
+        //Task<Guid> Delete(Guid id);
+        Task<List<Order>> Delete(Guid id);
     }
 }
