@@ -7,19 +7,24 @@ import { FormProps, Button, Form, Input, InputNumber, DatePicker, Space } from '
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";  
 import { useSearchParams } from 'next/navigation';
+import Title from "antd/es/typography/Title";
+import moment from 'moment';
+
 
 
 export default function UpdateOrder() {   
     const [order, setOrder] = useState<Order>();
     const router = useRouter();
-    //const id = router.query;
     const searchParams = useSearchParams();
     const params = new URLSearchParams(searchParams);
     const id = params.toString().split("=")[1];
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         const getOrder = async () => {
             const responce = await getOneOrder(id);
+            setLoading(false);
             setOrder(responce);
         };
         getOrder();
@@ -41,12 +46,23 @@ export default function UpdateOrder() {
             <br></br>
             <br></br>
             <br></br>
+            {loading ? (
+                <Title>Loading ...</Title>
+            ) : (
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 600 }}
-                initialValues={{ remember: true }}
+                initialValues={{
+                    cityFrom: order?.cityFrom ?? "",
+                    adressFrom: order?.adressFrom ?? "",
+                    cityTo: order?.cityTo ?? "",
+                    adressTo: order?.adressTo ?? "",
+                    weight: order?.weight ?? "",
+                    date: moment(order?.date),   // ?? "",
+                    specialNote: order?.specialNote ?? ""
+                }}   
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -97,7 +113,7 @@ export default function UpdateOrder() {
                     name="date"
                     rules={[{ required: true, message: 'Please input date!' }]}
                 >
-                    <DatePicker />
+                                <DatePicker/>
                 </Form.Item>
 
                 <Form.Item<OrderRequest>
@@ -124,7 +140,8 @@ export default function UpdateOrder() {
                         </Button>
                     </Space>
                 </Form.Item>
-            </Form>
+                </Form>
+            )}
         </div >
     );
 }

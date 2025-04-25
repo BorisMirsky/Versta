@@ -8,5 +8,5 @@ export interface Order {
     adressTo: string;
     weight: number,
     date: Date,
-    specialnote: string
+    specialNote: string
 }

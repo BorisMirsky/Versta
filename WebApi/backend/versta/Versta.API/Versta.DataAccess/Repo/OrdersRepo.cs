@@ -2,8 +2,10 @@
 using Versta.Core.Models;
 using Versta.Core.Abstractions;
 using Versta.DataAccess;
-using Versta.DataAccess.Entities;             
-
+using Versta.DataAccess.Entities;
+using System.Linq.Expressions;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
 
 
 namespace Versta.DataAccess.Repo
@@ -16,7 +18,7 @@ namespace Versta.DataAccess.Repo
             _context = context;
         }
 
-        public async Task<List<Order>> Get()
+        public async Task<List<Order>> Get() //[FromQuery] OrdersSearchRequest request)
         {
             var orderEntities = await _context.Orders
                 .AsNoTracking()
@@ -26,6 +28,13 @@ namespace Versta.DataAccess.Repo
                                           o.CityTo, o.AdressTo, o.Weight, 
                                           o.Date, o.SpecialNote).order) 
                 .ToList();
+
+            //Expression<Func<Order, object>> selectorKey = orders.SortItem?.ToLower() switch
+            //{
+            //    "cityfrom" => order => order.CityFrom,  
+            //    "cityto" => order => order.cityto,
+            //    _ => note => note.Id
+            //};
 
             return orders;
         }

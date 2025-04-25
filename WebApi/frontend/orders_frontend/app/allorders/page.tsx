@@ -6,15 +6,21 @@ import { Order } from "@/app/Models/Order";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import "../globals.css";
+import Title from "antd/es/typography/Title";
+import moment from 'moment';
+import Filters from '../Components/Filters';
 
 
 export default function AllOrders() {
     const [orders, setOrders] = useState<Order[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState({
+        search: "",
+        sortItem: "cityfrom"
+        //sortOrder: "desc",
+    });
 
-    //const handleClick = async (id1: string) => {   
-    //    console.log(id1)
-        //router.query = id1
-    //};
+
 
     const columns = [
         {
@@ -36,10 +42,7 @@ export default function AllOrders() {
                     }}        
                     legacyBehavior={true}
                 >
-                    <a
-                        className="tableLink"
-                        //onClick={() => handleClick(id)}
-                    >
+                    <a className="tableLink" >
                         {id}
                     </a>
                 </Link>
@@ -74,17 +77,26 @@ export default function AllOrders() {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
-        },
-        {
-            title: 'Special Note',
-            dataIndex: 'specialnote',
-            key: 'specialnote',
         }
+        //{
+        //    title: 'Special Note',
+        //    dataIndex: 'specialnote',
+        //    key: 'specialnote',
+        //}
     ]
+
+    //useEffect(() => {
+    //    const fetchData = async () => {
+    //        let orders = await fetchOrders(filter);
+    //        setOrders(orders);
+    //    };
+    //    fetchData();
+    //})          
 
     useEffect(() => {
         const getOrders = async () => {
             const responce = await getAllOrders();
+            setLoading(false);
             setOrders(responce);
         };
         getOrders();
@@ -99,21 +111,30 @@ export default function AllOrders() {
         cityto: order.cityTo,
         adressto: order.adressTo,
         weight: order.weight,
-        date: order.date,
-        specialnote: order.specialnote
+        date: moment(order.date).format("DD/MM/YYYY") //order.date,
+        //specialnote: order.specialnote
     })); 
 
 
     return (
-        <div >
+        <div ><br></br><br></br><br></br><br></br>
             <h1>Все заказы</h1>
-            <Table
-                dataSource={data}
-                columns={columns}
-                pagination={false}
-                footer={() => ""}
-                bordered
-            />
+            <br></br><br></br><br></br><br></br>
+            {loading ? (
+                <Title>Loading ...</Title>
+            ) : (
+                    <div>
+                        <Filters filter={filter} setFilter={setFilter} />
+                        <br></br><br></br><br></br><br></br>
+                <Table
+                    dataSource={data}
+                    columns={columns}
+                    pagination={false}
+                    footer={() => ""}
+                    bordered
+                        />
+                </div>
+            )}
         </div >
     );
 }

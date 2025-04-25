@@ -1,4 +1,5 @@
-﻿
+﻿//import { Interface } from "readline/promises";
+
 export interface OrderRequest {
     cityFrom: string;
     adressFrom: string;
@@ -14,10 +15,30 @@ export const getAllOrders = async () => {
     return response.json();
 };
 
+//export const fetchOrders = async (filter: Interface) => {
+//    try {
+//        var response = await fetch("http://localhost:5134/orders", {
+//            params: {
+//                search: filter?.search,
+//                sortItem: filter?.sortItem,
+//            },
+//        });
+//        return response.data; 
+//    } catch (e) {
+//        console.error(e);
+//    }
+//};
 
 export const getOneOrder = async (id: string) => {
-    const response = await fetch("http://localhost:5134/orders/" + id);   
+    const response = await fetch("http://localhost:5134/orders/" + id);
     return response.json();
+    //try {
+    //    const response = await fetch("http://localhost:5134/orders" + id);
+    //    return response.json();
+    //} catch (e) {
+    //    console.error(e);
+    //    return "ERROR";
+    //}
 };
 
 
@@ -29,14 +50,7 @@ export const createOrder = async (orderRequest: OrderRequest) => {
             'Cache-Control': 'no-cache',
         },
         body: JSON.stringify(orderRequest)
-    });  //.then(response => {
-    //    return response.json();
-    //})
-    //    .then(response => {
-    //        console.log('createOrder response ', response);
-    //    }).catch(err => {
-    //        console.log('createOrder err ', err);
-    //    });
+    });  
 }
 
 
@@ -48,14 +62,6 @@ export const updateOrder = async (id: string, orderRequest: OrderRequest) => {
         },
         body: JSON.stringify(orderRequest)
     });
-    //}).then(response => {
-    //    return response.json();
-    //})
-    //    .then(response => {
-    //        console.log('createOrder response ', response);
-    //    }).catch(err => {
-    //        console.log('createOrder err ', err);
-    //    });
 }
 
 
@@ -65,9 +71,14 @@ export const deleteOrder = async (id: string) => {
     }).then(response => {
         return response.json();
     });
-        //.then(response => {
-        //    console.log('deleteOrder response ', response);
-        //}).catch(err => {
-        //    console.log('deleteOrder err ', err);
-        //});
 }
+
+
+//}).then(response => {
+//    return response.json();
+//})
+//    .then(response => {
+//        console.log('createOrder response ', response);
+//    }).catch(err => {
+//        console.log('createOrder err ', err);
+//    });

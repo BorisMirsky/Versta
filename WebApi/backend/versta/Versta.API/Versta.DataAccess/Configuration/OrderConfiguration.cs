@@ -29,8 +29,8 @@ namespace Versta.DataAccess.Configuration
                 .IsRequired();
             builder.Property(o => o.CityTo)
                 .IsRequired();
-            builder.Property(o => o.SpecialNote)
-                    .IsRequired();
+            //builder.Property(o => o.SpecialNote)
+            //    .IsRequired();
             builder.Property(o => o.Date)
                 .IsRequired();
             builder.Property(o => o.Weight)
