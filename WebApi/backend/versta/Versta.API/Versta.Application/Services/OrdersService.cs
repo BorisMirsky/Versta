@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 //using Versta.DataAccess.Repo;
 using Versta.Core.Models;
 using Versta.Core.Abstractions;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace Versta.Application.Services
 {
@@ -18,9 +18,10 @@ namespace Versta.Application.Services
             _ordersRepo = ordersRepo;
         }
 
-        public async Task<List<Order>> GetAllOrders()
+        // Task<List<Order>>  Task<IActionResult>
+        public async Task<List<Order>> GetAllOrders(string? Search, string? SortItem, string? SortOrder)
         {
-            return await _ordersRepo.Get();
+            return await _ordersRepo.Get(Search, SortItem, SortOrder);
         }
 
         public async Task<Order> GetOneOrder(Guid id)

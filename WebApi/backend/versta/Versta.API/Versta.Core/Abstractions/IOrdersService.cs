@@ -1,11 +1,14 @@
 ﻿using Versta.Core.Models;
+//using Microsoft.AspNetCore.Mvc;
+
 
 
 namespace Versta.Core.Abstractions
 {
     public interface IOrdersService
     {
-        Task<List<Order>> GetAllOrders();
+        //Task<IActionResult>    Task<List<Order>>
+        Task<List<Order>> GetAllOrders(string? Search, string? SortItem, string? SortOrder); //, string? SortOrder);   
         Task<Order> GetOneOrder(Guid id);
         Task<Guid> CreateOrder(Order order);
         Task<Guid> UpdateOrder(Guid id, string cityFrom, string adressFrom,

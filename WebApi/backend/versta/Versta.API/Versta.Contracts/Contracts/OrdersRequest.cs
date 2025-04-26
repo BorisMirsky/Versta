@@ -1,4 +1,4 @@
-﻿namespace Versta.API.Contracts
+﻿namespace Versta.Contracts.Contracts
 {
     public record OrdersRequest
     (

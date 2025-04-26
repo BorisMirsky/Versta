@@ -9,6 +9,7 @@ import "../globals.css";
 import Title from "antd/es/typography/Title";
 import moment from 'moment';
 import Filters from '../Components/Filters';
+import SelectComponent from '../Components/SelectComponent';
 
 
 export default function AllOrders() {
@@ -16,8 +17,8 @@ export default function AllOrders() {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({
         search: "",
-        sortItem: "cityfrom"
-        //sortOrder: "desc",
+        sortItem: "date",
+        sortOrder: "desc",
     });
 
 
@@ -49,32 +50,32 @@ export default function AllOrders() {
             )
         },
         {
-            title: 'City From',
+            title: 'Город отправки',
             dataIndex: 'cityfrom',
             key: 'cityfrom',
         },
         {
-            title: 'Adress From',
+            title: 'Адрeс отправки',
             dataIndex: 'adressfrom',
             key: 'adressfrom',
         },
         {
-            title: 'City To',
+            title: 'Город доставки',
             dataIndex: 'cityto',
             key: 'cityTo',
         },
         {
-            title: 'Adress To',
+            title: 'Адрес доставки',
             dataIndex: 'adressto',
             key: 'adressto',
         },
         {
-            title: 'Weight',
+            title: 'Вес',
             dataIndex: 'weight',
             key: 'weight',
         },
         {
-            title: 'Date',
+            title: 'Дата доставки',
             dataIndex: 'date',
             key: 'date',
         }
@@ -95,12 +96,12 @@ export default function AllOrders() {
 
     useEffect(() => {
         const getOrders = async () => {
-            const responce = await getAllOrders();
+            const responce = await getAllOrders(filter);
             setLoading(false);
             setOrders(responce);
         };
         getOrders();
-    }, []);   
+    }, [filter]);   
 
     const data = orders.map((order, index) => ({
         key: index,
@@ -111,13 +112,13 @@ export default function AllOrders() {
         cityto: order.cityTo,
         adressto: order.adressTo,
         weight: order.weight,
-        date: moment(order.date).format("DD/MM/YYYY") //order.date,
+        date: moment(order.date).format("DD/MM/YYYY") 
         //specialnote: order.specialnote
     })); 
 
 
     return (
-        <div ><br></br><br></br><br></br><br></br>
+        <div><br></br><br></br><br></br><br></br>
             <h1>Все заказы</h1>
             <br></br><br></br><br></br><br></br>
             {loading ? (
@@ -125,6 +126,8 @@ export default function AllOrders() {
             ) : (
                     <div>
                         <Filters filter={filter} setFilter={setFilter} />
+                        <br></br>
+                        <SelectComponent filter={filter} setFilter={setFilter} />
                         <br></br><br></br><br></br><br></br>
                 <Table
                     dataSource={data}

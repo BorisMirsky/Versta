@@ -3,41 +3,70 @@ using Versta.Core.Models;
 using Versta.Core.Abstractions;
 using Versta.DataAccess;
 using Versta.DataAccess.Entities;
+using Versta.Contracts.Contracts;
 using System.Linq.Expressions;
-//using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Mvc;
+
 
 
 namespace Versta.DataAccess.Repo
 {
     public class OrdersRepo : IOrdersRepo
     {
+
         private readonly VerstaDbContext _context;
+
         public OrdersRepo(VerstaDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Order>> Get() //[FromQuery] OrdersSearchRequest request)
+        //public async Task<List<Order>>    Task<IActionResult>
+        public async Task<List<Order>> Get(string? Search, string? SortItem, string? SortOrder)
+                                            //CancellationToken ct)  
+                                           
         {
-            var orderEntities = await _context.Orders
-                .AsNoTracking()
-                .ToListAsync();
-            var orders = orderEntities
-                .Select(o => Order.Create(o.Id, o.CityFrom,  o.AdressFrom, 
-                                          o.CityTo, o.AdressTo, o.Weight, 
-                                          o.Date, o.SpecialNote).order) 
+            var ordersQuery = _context.Orders
+                    .Where(o => string.IsNullOrWhiteSpace(Search) ||
+                            o.CityFrom.ToLower().Contains(Search.ToLower()) ||
+                            o.CityTo.ToLower().Contains(Search.ToLower()));
+
+            Expression<Func<Order, object>> selectorKey = SortItem?.ToLower() switch
+            {
+                "date" => order => order.Date,
+                "cityto" => order => order.CityTo,
+                "cityfrom" => order => order.CityFrom,
+                _ => order => order.Id
+            };
+
+            //if (SortOrder == "desc")
+            //{
+            //    ordersQuery = ordersQuery.OrderByDescending(selectorKey);
+            //}
+            //else
+            //{
+            //    ordersQuery = ordersQuery.OrderBy(o => o.Date);
+            //}
+
+            //var noteDtos = await ordersQuery
+            //    .Select(o => new OrderDto(o.Id, o.CityFrom, o.AdressFrom,
+            //                                o.CityTo, o.AdressTo, o.Weight,
+            //                                o.Date, o.SpecialNote))
+            //    .ToListAsync(); // cancellationToken: ct);
+
+            var orders = ordersQuery
+                .Select(o => Order.Create(o.Id, o.CityFrom, o.AdressFrom,
+                                            o.CityTo, o.AdressTo, o.Weight,
+                                            o.Date, o.SpecialNote).order)
                 .ToList();
 
-            //Expression<Func<Order, object>> selectorKey = orders.SortItem?.ToLower() switch
-            //{
-            //    "cityfrom" => order => order.CityFrom,  
-            //    "cityto" => order => order.cityto,
-            //    _ => note => note.Id
-            //};
-
-            return orders;
+            return orders;   
         }
+
+
 
         public async Task<Order> Get(Guid id) 
         {
@@ -89,13 +118,11 @@ namespace Versta.DataAccess.Repo
             return id;
         }
 
-        //public async Task<Guid> Delete(Guid id)
-        public async Task<List<Order>> Delete(Guid id)     //Task<Guid>
+        public async Task<List<Order>> Delete(Guid id)    
         {
             await _context.Orders
                 .Where(o => o.Id == id)
                 .ExecuteDeleteAsync();
-            //return id;
             var orderEntities = await _context.Orders
                 .AsNoTracking()
                 .ToListAsync();
@@ -109,3 +136,13 @@ namespace Versta.DataAccess.Repo
         }
     }
 }
+
+
+//if (SortOrder == "desc")
+//{
+//    ordersQuery = ordersQuery.OrderByDescending<OrderEntity>(selectorKey);
+//}
+//else
+//{
+//    ordersQuery = ordersQuery.OrderBy(o => o.Date);
+//}

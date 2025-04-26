@@ -1,4 +1,6 @@
 ﻿//import { Interface } from "readline/promises";
+//import axios from "axios";
+
 
 export interface OrderRequest {
     cityFrom: string;
@@ -10,35 +12,38 @@ export interface OrderRequest {
     specialNote?: string
 }
 
-export const getAllOrders = async () => {
-    const response = await fetch("http://localhost:5134/orders");
-    return response.json();
+export interface FilterInterface {
+    search: "";
+    sortItem: "cityfrom";
+    sortOrder: ""
+}
+
+//export const getAllOrders = async () => {
+//    const response = await fetch("http://localhost:5134/orders");
+//    return response.json();
+//};
+
+
+export const getAllOrders = async (filter: FilterInterface) => {
+    try {
+        const response = await fetch("http://localhost:5134/orders", {
+            params: {
+                search: filter?.search,
+                sortItem: filter?.sortItem,
+                sortOrder: filter?.sortOrder,
+            },
+        });
+        console.log('response: ', response);
+        return response.json();     
+    } catch (e) {
+        console.error(e);
+    }
 };
 
-//export const fetchOrders = async (filter: Interface) => {
-//    try {
-//        var response = await fetch("http://localhost:5134/orders", {
-//            params: {
-//                search: filter?.search,
-//                sortItem: filter?.sortItem,
-//            },
-//        });
-//        return response.data; 
-//    } catch (e) {
-//        console.error(e);
-//    }
-//};
 
 export const getOneOrder = async (id: string) => {
     const response = await fetch("http://localhost:5134/orders/" + id);
     return response.json();
-    //try {
-    //    const response = await fetch("http://localhost:5134/orders" + id);
-    //    return response.json();
-    //} catch (e) {
-    //    console.error(e);
-    //    return "ERROR";
-    //}
 };
 
 

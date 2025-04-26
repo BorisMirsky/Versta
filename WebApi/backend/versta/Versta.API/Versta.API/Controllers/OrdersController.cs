@@ -1,7 +1,7 @@
 ﻿using Versta.Core.Abstractions;
 using Versta.Core.Models;
-using Versta.API.Contracts;
-//using Versta.
+//using Versta.API.Contracts;
+using Versta.Contracts.Contracts;
 //using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 //using System;
@@ -20,15 +20,19 @@ namespace Versta.API.Controllers
             _ordersService = ordersService;
         }
 
+
         [HttpGet]
-        public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders()   
+        public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders([FromQuery] OrdersSearchRequest request)
         {
-            var orders = await _ordersService.GetAllOrders(); 
-            var responce = orders.Select(o => new OrdersResponse(o.Id, o.CityFrom, 
+            var orders = await _ordersService.GetAllOrders(request?.Search, 
+                                                           request?.SortItem,
+                                                           request?.SortOrder);
+            var responce = orders.Select(o => new OrdersResponse(o.Id, o.CityFrom,
                 o.AdressFrom, o.CityTo, o.AdressTo,
                 o.Weight, o.Date, o.SpecialNote));
             return Ok(responce);
         }
+
 
         [HttpGet("{id}")]   
         public async Task<ActionResult<OrdersResponse>> GetOneOrder(Guid id)  
@@ -36,6 +40,7 @@ namespace Versta.API.Controllers
             var order = await _ordersService.GetOneOrder(id);
             return Ok(order);
         }
+         
 
         [HttpPost]
         public async Task<ActionResult<Guid>> CreateOrder([FromBody] OrdersRequest request)
