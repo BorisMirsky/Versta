@@ -18,6 +18,7 @@ namespace Versta.DataAccess
         {
         }
         public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.LogTo(logStream.WriteLine);
