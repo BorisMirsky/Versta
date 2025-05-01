@@ -11,7 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-
+using BCrypt.Net;
+using Microsoft.Extensions.Configuration;
 
 
 
@@ -20,8 +21,6 @@ using System.Security.Claims;
 namespace Versta.Application.Services
 {
     using BCrypt.Net;
-
-    using Microsoft.Extensions.Configuration;
 
     public class AuthService : IAuthService
     {

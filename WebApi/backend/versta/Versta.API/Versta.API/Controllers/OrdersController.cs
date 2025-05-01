@@ -77,10 +77,11 @@ namespace Versta.API.Controllers
 
 
         [HttpDelete("{id:guid}")]
-        //public async Task<ActionResult<Guid>> DeleteOrder(Guid id)
-        public async Task<ActionResult<List<OrdersResponse>>> DeleteOrder(Guid id)
+        public void DeleteOrder(Guid id)
+        //public async Task<ActionResult<List<OrdersResponse>>> DeleteOrder(Guid id)
         {
-            return Ok(await _ordersService.DeleteOrder(id));
+            //return Ok(await _ordersService.DeleteOrder(id));
+            _ordersService.DeleteOrder(id);
         }
     }
 }

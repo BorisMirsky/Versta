@@ -29,6 +29,7 @@ namespace Versta.Core.Models
             //Role = role;
         }
     }
+
     public class LoginUser
     {
         public string UserName { get; set; } = "";

@@ -8,6 +8,8 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc;
 
 
@@ -77,7 +79,7 @@ namespace Versta.DataAccess.Repo
                .Where(item => item.Id == id)
                .ToList()
                .FirstOrDefault();
-            var order = Order.Create(orderEntity!.Id, orderEntity.CityFrom,
+            var order = Order.Create(orderEntity.Id, orderEntity.CityFrom,
                 orderEntity.AdressFrom,
                 orderEntity.CityTo, orderEntity.AdressTo, orderEntity.Weight,
                 orderEntity.Date, orderEntity.SpecialNote).order;
@@ -118,21 +120,21 @@ namespace Versta.DataAccess.Repo
             return id;
         }
 
-        public async Task<List<Order>> Delete(Guid id)    
+        //public async Task<List<Order>> Delete(Guid id)     
+        public void Delete(Guid id)     
         {
-            await _context.Orders
-                .Where(o => o.Id == id)
-                .ExecuteDeleteAsync();
-            var orderEntities = await _context.Orders
-                .AsNoTracking()
-                .ToListAsync();
-            var orders = orderEntities
-                .Select(o => Order.Create(o.Id, o.CityFrom, o.AdressFrom,
-                                          o.CityTo, o.AdressTo, o.Weight,
-                                          o.Date, o.SpecialNote).order)
-                .ToList();
-
-            return orders;
+            var orderToDelete = _context.Orders.Find(id);
+            _context.Orders.Remove(orderToDelete);
+            _context.SaveChanges();
+            //var orderEntities = await _context.Orders
+            //    .AsNoTracking()
+            //    .ToListAsync();
+            //var orders = orderEntities
+            //    .Select(o => Order.Create(o.Id, o.CityFrom, o.AdressFrom,
+            //                              o.CityTo, o.AdressTo, o.Weight,
+            //                              o.Date, o.SpecialNote).order)
+            //    .ToList();
+            //return orders;
         }
     }
 }

@@ -34,7 +34,7 @@ export default function OneOrder() {
 
     const handleDelete = async (id: string) => {
         await deleteOrder(id);
-        router.push("allorders");
+        router.push("/");        //allorders
     };
 
     const handleUpdate = async () => {
