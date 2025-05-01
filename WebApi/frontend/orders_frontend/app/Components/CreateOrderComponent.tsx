@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { Button, Form, Input, InputNumber, DatePicker, Space } from 'antd';
 import type { FormProps } from 'antd';
-import { OrderRequest, createOrder } from "@/app/Services/service";   //createOrder
+import { OrderRequest, createOrder } from "@/app/Services/service";   
 import { Order } from "@/app/Models/Order";
 import { useEffect, useState } from "react";
 
@@ -30,33 +30,26 @@ export const CreateOrderForm = ({
         setAdressto(values.adressTo);
         setWeight(values.weight);
         setDate(values.date);
-        setSpecialnote(values.specialnote);
+        setSpecialnote(values?.specialNote);
     }, [values]);
 
-    //const handleOnOk = async () => {
-    //    const request: OrderRequest = {
-    //        cityFrom, adressFrom, cityTo,
-    //        adressTo, weight, date, specialNote
-    //    };
-    //    handleCreate(request);
-    //};
 
     const onFinishFailed: FormProps<OrderRequest>['onFinishFailed'] = (errorInfo) => {
         console.log('Failed:', errorInfo);
     }
 
-    const onFinish = () => {      //values: object
+    const onFinish = () => {     
         const request: OrderRequest = {
-            cityFrom: cityFrom, //values.cityFrom,
-            cityTo: cityTo, //values.cityTo,
-            adressFrom: adressFrom,  //values.adressFrom,
-            adressTo: adressTo,  //values.adressTo,
-            weight: weight,   //values.weight,
-            date: date,   //values.date
+            cityFrom: cityFrom, 
+            cityTo: cityTo, 
+            adressFrom: adressFrom, 
+            adressTo: adressTo,  
+            weight: weight,  
+            date: date,   
             specialNote: specialNote
         }
         createOrder(request);
-        console.log('onFinish ', request, typeof (request));
+        //console.log('onFinish ', request, typeof (request));
     }
 
 

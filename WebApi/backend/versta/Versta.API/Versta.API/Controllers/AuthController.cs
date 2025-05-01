@@ -44,11 +44,12 @@ namespace Versta.API.Controllers
             return BadRequest(new { message = "User login unsuccessful" });
         }
 
-        // POST: auth/register
+
         //if (String.IsNullOrEmpty(user.Name))
         //{
         //    return BadRequest(new { message = "Name needs to entered" });
         //}
+        // POST: auth/register
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterUser user)

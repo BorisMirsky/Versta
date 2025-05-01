@@ -12,6 +12,17 @@ export interface OrderRequest {
     specialNote?: string
 }
 
+export interface UserRegistrationRequest {
+    login: string;
+    password: string;
+}
+
+export interface UserLoginRequest {
+    login: string;
+    password: string;
+}
+
+
 export interface FilterInterface {
     search: "";
     sortItem: "cityfrom";
@@ -33,7 +44,7 @@ export const getAllOrders = async (filter: FilterInterface) => {
                 sortOrder: filter?.sortOrder,
             },
         });
-        console.log('response: ', response);
+        //console.log('response: ', response);
         return response.json();     
     } catch (e) {
         console.error(e);
@@ -42,7 +53,10 @@ export const getAllOrders = async (filter: FilterInterface) => {
 
 
 export const getOneOrder = async (id: string) => {
-    const response = await fetch("http://localhost:5134/orders/" + id);
+    const response = await fetch("http://localhost:5134/orders/" + id, {
+        method: 'GET'
+    });
+    //console.log('getOneOrder');
     return response.json();
 };
 
@@ -56,6 +70,16 @@ export const createOrder = async (orderRequest: OrderRequest) => {
         },
         body: JSON.stringify(orderRequest)
     });  
+}
+
+
+export const registrationUser = async (userRegistrationRequest: UserRegistrationRequest) => {
+    console.log('userRegistrationRequest: ', userRegistrationRequest)
+}
+
+
+export const loginUser = async (userLoginRequest: UserLoginRequest) => {
+    console.log('userLoginRequest: ', userLoginRequest)
 }
 
 
@@ -73,10 +97,9 @@ export const updateOrder = async (id: string, orderRequest: OrderRequest) => {
 export const deleteOrder = async (id: string) => {
     await fetch('http://localhost:5134/orders/' + id, {
         method: 'DELETE'
-    }).then(response => {
-        return response.json();
     });
 }
+
 
 
 //}).then(response => {
