@@ -68,10 +68,11 @@ export const createOrder = async (orderRequest: OrderRequest) => {
 }
 
 
-export const registerUser1 = async (request: UserRegistrationRequest) => {
+export const registerUser = async (request: UserRegistrationRequest) => {
     console.log('(request ', (request));
     await fetch("http://localhost:5134/auth/register", {
         method: 'POST',
+        redirect: "manual",
         headers: {
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache',
@@ -84,7 +85,10 @@ export const registerUser1 = async (request: UserRegistrationRequest) => {
         if (response.message == "User registration unsuccessful") {
             alert("User registration unsuccessful")
         }
-    })
+        else {
+            window.location.href = 'allorders';
+        }
+    });
 }
 
 
@@ -93,7 +97,7 @@ export const registerUser1 = async (request: UserRegistrationRequest) => {
 
 export const loginUser = async (request: UserLoginRequest) => {
     await fetch("http://localhost:5134/auth/login", {
-        method: 'POST', 
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache',
@@ -106,7 +110,10 @@ export const loginUser = async (request: UserLoginRequest) => {
         if (response.message == "User login unsuccessful") {
             alert("User login unsuccessful")
         }
-    })
+        else {
+            window.location.href = 'allorders';
+        }
+    });
 }
 
 
