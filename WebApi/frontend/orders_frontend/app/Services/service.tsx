@@ -1,5 +1,7 @@
 ﻿//import { Interface } from "readline/promises";
 //import axios from "axios";
+//import { useRouter } from 'next/navigation';
+
 
 
 export interface OrderRequest {
@@ -13,15 +15,14 @@ export interface OrderRequest {
 }
 
 export interface UserRegistrationRequest {
-    login: string;
+    username: string;
     password: string;
 }
 
 export interface UserLoginRequest {
-    login: string;
+    username: string;
     password: string;
 }
-
 
 export interface FilterInterface {
     search: "";
@@ -29,15 +30,10 @@ export interface FilterInterface {
     sortOrder: ""
 }
 
-//export const getAllOrders = async () => {
-//    const response = await fetch("http://localhost:5134/orders");
-//    return response.json();
-//};
-
-
 export const getAllOrders = async (filter: FilterInterface) => {
     try {
         const response = await fetch("http://localhost:5134/orders", {
+            mode: 'cors',
             params: {
                 search: filter?.search,
                 sortItem: filter?.sortItem,
@@ -56,7 +52,6 @@ export const getOneOrder = async (id: string) => {
     const response = await fetch("http://localhost:5134/orders/" + id, {
         method: 'GET'
     });
-    //console.log('getOneOrder');
     return response.json();
 };
 
@@ -73,13 +68,59 @@ export const createOrder = async (orderRequest: OrderRequest) => {
 }
 
 
-export const registrationUser = async (userRegistrationRequest: UserRegistrationRequest) => {
-    console.log('userRegistrationRequest: ', userRegistrationRequest)
+export const registerUser1 = async (request: UserRegistrationRequest) => {
+    console.log('(request ', (request));
+    await fetch("http://localhost:5134/auth/register", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+        },
+        body: JSON.stringify(request)
+    }).then(response => {
+        console.log('response ', response);
+        return response.json();
+    }).then(response => {
+        if (response.message == "User registration unsuccessful") {
+            alert("User registration unsuccessful")
+        }
+    })
 }
 
 
-export const loginUser = async (userLoginRequest: UserLoginRequest) => {
-    console.log('userLoginRequest: ', userLoginRequest)
+
+
+
+export const loginUser = async (request: UserLoginRequest) => {
+    await fetch("http://localhost:5134/auth/login", {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+        },
+        body: JSON.stringify(request)
+    }).then(response => {
+        console.log(response);
+        return response.json();
+    }).then(response => {
+        if (response.message == "User login unsuccessful") {
+            alert("User login unsuccessful")
+        }
+    })
+}
+
+
+
+export const registrationUser = async (userRegistrationRequest: UserRegistrationRequest) => {
+    console.log(userRegistrationRequest);
+    //await fetch("http://localhost:5134/auth/register/", {
+    //    method: 'POST',
+    //    headers: {
+    //        'Content-Type': 'application/json',
+    //        'Cache-Control': 'no-cache',
+    //    },
+    //    body: JSON.stringify(userRegistrationRequest)
+    //});
 }
 
 

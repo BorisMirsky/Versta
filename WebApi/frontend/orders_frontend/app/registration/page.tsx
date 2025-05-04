@@ -1,7 +1,8 @@
 ﻿"use client"
 
+//registrationUser,
 import React from 'react';
-import { registrationUser, UserRegistrationRequest } from "@/app/Services/service";
+import { registerUser ,UserRegistrationRequest } from "@/app/Services/service";
 //import { getAllOrders } from "@/app/Services/service"; 
 //import { CreateOrderForm } from "@/app/Components/CreateOrderComponent";   
 //import { Order } from "@/app/Models/Order";
@@ -10,6 +11,8 @@ import { FormProps, Button, Form, Input, Space } from 'antd';
 //import moment from 'moment';
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+
 
 
 export default function Registration() {
@@ -26,7 +29,8 @@ export default function Registration() {
     }
 
     const onFinish: FormProps<UserRegistrationRequest>['onFinish'] = (values) => {
-        registrationUser(values);
+        //registrationUser(values);
+        registerUser(values);
         //router.push("/allorders");
     }
 
@@ -50,8 +54,8 @@ export default function Registration() {
                     autoComplete="off"
                 >
                     <Form.Item<UserRegistrationRequest>
-                        label="Login"
-                        name="login"
+                        label="UserName"
+                        name="username"
                         rules={[{ required: true, message: 'Please input login!' }]}
                     >
                         <Input />
@@ -71,7 +75,7 @@ export default function Registration() {
                                 type="primary"
                                 htmlType="submit"
                             >
-                                Сохранить
+                                Регистрация
                             </Button>
                         </Space>
                         <Space>
@@ -82,6 +86,17 @@ export default function Registration() {
                     </Form.Item>
                 </Form>
             )}
+            <br></br>
+            <br></br>
+            <p>
+                <Link
+                href={{
+                    pathname: "login"
+                }}
+                legacyBehavior={true}
+                >Войти под своим логином
+                </Link>
+            </p>
         </div >
     );
 }

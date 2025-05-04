@@ -11,7 +11,7 @@ namespace Versta.Core.Abstractions
 {
     public interface IAuthService
     {
-        public Task<User> Login(string username, string password);
-        public Task<User> Register(User user);
+        Task<User> Login(string username, string password);
+        Task<User> Register(string username, string password);  
     }
 }

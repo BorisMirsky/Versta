@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Versta.Core.Models;
 using Versta.Core.Abstractions;
+using Versta.API.Contracts;
 //using Versta.Business.AuthService.Interface;
 using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;                     
@@ -9,8 +10,8 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Versta.API.Controllers
 {
-    [Route("[controller]/[action]")]
     [ApiController]
+    [Route("[controller]")]  //[action]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -20,21 +21,48 @@ namespace Versta.API.Controllers
             _authService = authService;
         }
 
-        // POST: auth/login
+        [Route("Register")]
         [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginUser user)
+        [HttpPost("auth/register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            if (String.IsNullOrEmpty(user.UserName))
+            if (String.IsNullOrEmpty(request.UserName))
             {
-                return BadRequest(new { message = "Email address needs to entered" });
+                return BadRequest(new { message = "User name needs to entered" });
             }
-            else if (String.IsNullOrEmpty(user.Password))
+            else if (String.IsNullOrEmpty(request.Password))
             {
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User loggedInUser = await _authService.Login(user.UserName, user.Password);
+            User userToRegister = new(request.UserName, request.Password);
+
+            User loggedInUser = await _authService.Register(request.UserName!, request.Password);
+
+            if (loggedInUser != null)
+            {
+                return Ok(loggedInUser);
+            }
+
+            return BadRequest(new { message = "User registration unsuccessful" });
+        }
+
+
+        [Route("Login")]
+        [AllowAnonymous]
+        [HttpPost("auth/login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            if (String.IsNullOrEmpty(request.UserName))
+            {
+                return BadRequest(new { message = "Email address needs to entered" });
+            }
+            else if (String.IsNullOrEmpty(request.Password))
+            {
+                return BadRequest(new { message = "Password needs to entered" });
+            }
+
+            User loggedInUser = await _authService.Login(request.UserName, request.Password);
 
             if (loggedInUser != null)
             {
@@ -45,39 +73,7 @@ namespace Versta.API.Controllers
         }
 
 
-        //if (String.IsNullOrEmpty(user.Name))
-        //{
-        //    return BadRequest(new { message = "Name needs to entered" });
-        //}
-        // POST: auth/register
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterUser user)
-        {
-            if (String.IsNullOrEmpty(user.UserName))
-            {
-                return BadRequest(new { message = "User name needs to entered" });
-            }
-            else if (String.IsNullOrEmpty(user.Password))
-            {
-                return BadRequest(new { message = "Password needs to entered" });
-            }
 
-            User userToRegister = new(user.UserName, user.Password); //, user.Name,  user.Role);  //user.Id,
-
-            User registeredUser = await _authService.Register(userToRegister);
-
-            User loggedInUser = await _authService.Login(registeredUser.UserName!, user.Password);
-
-            if (loggedInUser != null)
-            {
-                return Ok(loggedInUser);
-            }
-
-            return BadRequest(new { message = "User registration unsuccessful" });
-        }
-
-        // GET: auth/test
         [Authorize(Roles = "Everyone")]
         [HttpGet]
         public IActionResult Test()
@@ -103,3 +99,7 @@ namespace Versta.API.Controllers
         }
     }
 }
+
+
+// from register
+//User registeredUser = await _authService.Register(userToRegister.UserName, userToRegister.Password);

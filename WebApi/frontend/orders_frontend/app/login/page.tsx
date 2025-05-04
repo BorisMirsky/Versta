@@ -1,7 +1,7 @@
 ﻿"use client"
 
 import React from 'react';
-import { loginUser, UserLoginRequest } from "@/app/Services/service";
+import { loginUser, UserLoginRequest, loginResponse } from "@/app/Services/service";
 //import { getAllOrders } from "@/app/Services/service"; 
 //import { CreateOrderForm } from "@/app/Components/CreateOrderComponent";   
 //import { Order } from "@/app/Models/Order";
@@ -10,12 +10,14 @@ import { FormProps, Button, Form, Input, Space } from 'antd';
 //import moment from 'moment';
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+
 
 
 export default function Login() {
     //const router = useRouter();
     const [loading, setLoading] = useState(true);
-
+    //let LoginResponce: object = {};
 
     useEffect(() => {
         setLoading(false);
@@ -32,7 +34,7 @@ export default function Login() {
 
     return (
         <div >
-            <h1>Войти на сайт под своим логином</h1>
+            <h1>Войти под своим логином</h1>
             <br></br>
             <br></br>
             <br></br>
@@ -50,8 +52,8 @@ export default function Login() {
                     autoComplete="off"
                 >
                         <Form.Item<UserLoginRequest>
-                        label="Login"
-                        name="login"
+                        label="UserName"
+                        name="username"
                         rules={[{ required: true, message: 'Please input login!' }]}
                     >
                         <Input />
@@ -71,7 +73,7 @@ export default function Login() {
                                 type="primary"
                                 htmlType="submit"
                             >
-                                Сохранить
+                                Залогиниться
                             </Button>
                         </Space>
                         <Space>
@@ -80,8 +82,23 @@ export default function Login() {
                             </Button>
                         </Space>
                     </Form.Item>
-                </Form>
+                    </Form>
+
             )}
+            <br></br>
+            <br></br>
+            {}
+            <br></br>
+            <br></br>
+            <p>
+                <Link
+                    href={{
+                        pathname: "registration"
+                    }}
+                    legacyBehavior={true}
+                >Регистрация
+                </Link>
+            </p>
         </div >
     );
 }

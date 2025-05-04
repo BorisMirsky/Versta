@@ -5,7 +5,7 @@ using Versta.Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+//using Microsoft.OpenApi.Models;
 using System.Text;
 
 
@@ -21,6 +21,7 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddDbContext<VerstaDbContext>(options => options.UseNpgsql(connection));
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<IOrdersRepo, OrdersRepo>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Auth start
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -57,10 +58,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
+//после UseRouting, но до UseAuthorization
 app.UseCors(x =>
 {
     x.WithHeaders().AllowAnyHeader();
@@ -68,5 +66,12 @@ app.UseCors(x =>
     x.WithMethods().AllowAnyMethod();
 });
 
+app.UseAuthorization();
+app.MapControllers();
+
+
+//app.MapControllerRoute(
+//    name: "Auth",
+//    pattern: "{controller=auth}/{action=login}");
 
 app.Run();
