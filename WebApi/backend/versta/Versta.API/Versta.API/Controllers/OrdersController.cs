@@ -4,6 +4,8 @@ using Versta.Core.Models;
 using Versta.Contracts.Contracts;
 //using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 //using System;
 
 
@@ -12,6 +14,7 @@ namespace Versta.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize] //(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersService _ordersService;

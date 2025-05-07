@@ -21,8 +21,6 @@ export default function AllOrders() {
         sortOrder: "desc",
     });
 
-
-
     const columns = [
         {
             title: 'N',
@@ -86,20 +84,13 @@ export default function AllOrders() {
         //}
     ]
 
-    //useEffect(() => {
-    //    const fetchData = async () => {
-    //        let orders = await fetchOrders(filter);
-    //        setOrders(orders);
-    //    };
-    //    fetchData();
-    //})          
 
     useEffect(() => {
         const getOrders = async () => {
             const responce = await getAllOrders(filter);
             setLoading(false);
             setOrders(responce);
-        };
+            }
         getOrders();
     }, [filter]);   
 
@@ -121,6 +112,7 @@ export default function AllOrders() {
         <div><br></br><br></br><br></br><br></br>
             <h1>Все заказы</h1>
             <br></br><br></br><br></br><br></br>
+            <br></br><br></br><br></br><br></br>
             {loading ? (
                 <Title>Loading ...</Title>
             ) : (
@@ -141,3 +133,5 @@ export default function AllOrders() {
         </div >
     );
 }
+
+

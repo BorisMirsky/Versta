@@ -19,6 +19,7 @@ namespace Versta.Core.Models
         public bool? IsActive { get; set; } = false;
         public string? Token { get; set; } = "";
         public string? Password { get; set; } = "";   // PasswordHash
+        //public (string, string)? Headers { get; set; } = ("", ""); 
 
         public User(string userName, string password) //string name, string password, string role)  //Guid id,
         {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 //using Microsoft.OpenApi.Models;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,11 +44,12 @@ builder.Services.AddAuthentication(opt =>
         ValidateIssuer = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"]!,
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:Audience"]!
+        ValidAudience = builder.Configuration["JWT:Audience"]!,
+        ValidateLifetime = true,
     };
 });
 // Auth stop
-
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

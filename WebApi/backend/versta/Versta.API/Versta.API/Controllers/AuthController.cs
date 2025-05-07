@@ -4,7 +4,9 @@ using Versta.Core.Abstractions;
 using Versta.API.Contracts;
 //using Versta.Business.AuthService.Interface;
 using Microsoft.AspNetCore.Authorization;
-using System.IdentityModel.Tokens.Jwt;                     
+using Microsoft.AspNetCore.Authentication;
+using System.IdentityModel.Tokens.Jwt;
+using System.Diagnostics;                    
 
 
 
@@ -21,9 +23,10 @@ namespace Versta.API.Controllers
             _authService = authService;
         }
 
+
         [Route("Register")]
         [AllowAnonymous]
-        [HttpPost("auth/register")]
+        [HttpPost] 
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (String.IsNullOrEmpty(request.UserName))
@@ -50,7 +53,7 @@ namespace Versta.API.Controllers
 
         [Route("Login")]
         [AllowAnonymous]
-        [HttpPost("auth/login")]
+        [HttpPost] 
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (String.IsNullOrEmpty(request.UserName))
@@ -63,13 +66,26 @@ namespace Versta.API.Controllers
             }
 
             User loggedInUser = await _authService.Login(request.UserName, request.Password);
+            //loggedInUser.Headers = ("Access-Control-Expose-Headers", "Authorization");
 
             if (loggedInUser != null)
             {
+                //Debug.WriteLine("loggedInUser: ", loggedInUser);
                 return Ok(loggedInUser);
             }
 
             return BadRequest(new { message = "User login unsuccessful" });
+        }
+
+
+        [Route("Logout")]
+        [AllowAnonymous]
+        [HttpPost]  
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            Response.Headers.Remove("Authorization");
+            return RedirectToAction("/");
         }
 
 

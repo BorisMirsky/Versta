@@ -62,7 +62,8 @@ namespace Versta.Application.Services
 
         public async Task<User> Login(string username, string password)
         {
-            UserEntity userEntity = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == username); // && u.Password == password);
+            UserEntity userEntity = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == username);// && u.Password == password);
+            //Person? person = people.FirstOrDefault(p => p.Email == loginData.Email && p.Password == loginData.Password);
             // if login is wrong                                                                                                 // if login is wrong
             if (userEntity == null)
             {
@@ -74,7 +75,7 @@ namespace Versta.Application.Services
             {
                 return null;
             }
-
+            //
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JWT:SecretKey"]!);
             var tokenDescriptor = new SecurityTokenDescriptor
