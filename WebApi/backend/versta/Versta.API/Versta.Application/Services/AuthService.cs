@@ -42,34 +42,39 @@ namespace Versta.Application.Services
         }
 
 
-        public async Task<User> Register(string name, string password)    // Task<User>
+        public async Task<User> Register(string name, string password,
+            string email, string role)    // Task<User>
         {
             var hashedPassword = BCrypt.HashPassword(password);
             UserEntity userEntity = new UserEntity
             {
                 Id = new Guid(),
                 UserName = name,
-                Password = hashedPassword
+                Password = hashedPassword,
+                Email = email,
+                Role = role
             };
             _dbContext.Users.Add(userEntity!);
             await _dbContext.SaveChangesAsync();
 
             User user = new User(name, hashedPassword);
             user.Id = userEntity.Id;
+            user.UserName = userEntity.UserName;
+            user.Role = userEntity.Role;
             return user;
         }
 
 
-        public async Task<User> Login(string username, string password)
+        public async Task<User> Login(string email, string password)
         {
-            UserEntity userEntity = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == username);// && u.Password == password);
+            UserEntity userEntity = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);// && u.Password == password);
             //Person? person = people.FirstOrDefault(p => p.Email == loginData.Email && p.Password == loginData.Password);
             // if login is wrong                                                                                                 // if login is wrong
             if (userEntity == null)
             {
                 return null;
             }
-            User user = new User(username, password); 
+            User user = new User(email, password); 
             // if password is wrong
             if (user == null || BCrypt.Verify(password, userEntity.Password) == false)  
             {
@@ -82,7 +87,8 @@ namespace Versta.Application.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                        new Claim(ClaimTypes.Name, username),
+                        new Claim(ClaimTypes.Email, email),
+                        new Claim(ClaimTypes.Name, user.UserName!),
                         //new Claim(ClaimTypes.Id, id),
                         new Claim(ClaimTypes.Role, user.Role!)
                 }),

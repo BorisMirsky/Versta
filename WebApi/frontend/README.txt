@@ -46,16 +46,24 @@ TODO
 3) поиск и сортировка с фронта не работают
 
 #########################################################
-
-4) стиль (габариты в ширину)
-        
-7) При неверном пароле сделать алерт получше
+      
+4) Login, Registration --> Modal
+    Invalid hook call. Hooks can only be called inside of the body of a function component. 
+    This could happen for one of the following reasons:
+  https://ru.legacy.reactjs.org/warnings/invalid-hook-call-warning.html
 
 #####################################
 
-8) добавить колонки в таблице
+5) добавить:
+      колонку в таблице (email)
+      соответствующее поле, инпут и т.д. 
 
-9) авторизация по ролям (admin, manager, visitor)
+
+
+
+6) авторизация по ролям (admin, manager, visitor)
+   сделать юзера админ, который один имеет право регистрировать новых юзеров
+   дальше уже в зависимости от роли
 
 
 

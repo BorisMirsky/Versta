@@ -21,6 +21,7 @@ export default function Login() {
     }
 
     const onFinish: FormProps<UserLoginRequest>['onFinish'] = (values) => {
+        console.log('values ', values)
         loginUser(values);
     }
 
@@ -44,8 +45,8 @@ export default function Login() {
                     autoComplete="off"
                 >
                         <Form.Item<UserLoginRequest>
-                        label="UserName"
-                        name="username"
+                        label="Email"
+                        name="email"
                         rules={[{ required: true, message: 'Please input login!' }]}
                     >
                         <Input />

@@ -9,6 +9,7 @@ export default function Filters({ filter, setFilter }) {
     return (
         <div className="flex flex-col gap-5">
             <Input
+                style={{ width: 220 }}
                 placeholder="поиск по городу отправки"
                 onChange={(e) => setFilter(
                     { ...filter, search: e.target.value },

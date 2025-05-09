@@ -9,7 +9,7 @@ export default function CurrentUserComponent() {
 
     useEffect(() => {
         const getUser = async () => {
-            const result = localStorage.getItem("user") || "";
+            const result = localStorage.getItem("username") || "";
             setCurrentUser(result); 
         }
         getUser();

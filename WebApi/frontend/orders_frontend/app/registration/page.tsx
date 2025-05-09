@@ -29,7 +29,7 @@ export default function Registration() {
     }
 
     const onFinish: FormProps<UserRegistrationRequest>['onFinish'] = (values) => {
-        //registrationUser(values);
+        console.log('register values', values);
         registerUser(values);
         //router.push("/allorders");
     }
@@ -54,8 +54,8 @@ export default function Registration() {
                     autoComplete="off"
                 >
                     <Form.Item<UserRegistrationRequest>
-                        label="UserName"
-                        name="username"
+                        label="Email"
+                        name="email"
                         rules={[{ required: true, message: 'Please input login!' }]}
                     >
                         <Input />
@@ -64,6 +64,22 @@ export default function Registration() {
                     <Form.Item<UserRegistrationRequest>
                         label="Password"
                         name="password"
+                        rules={[{ required: true, message: 'Please input password!' }]}
+                    >
+                        <Input />
+                        </Form.Item>
+
+                    <Form.Item<UserRegistrationRequest>
+                        label="UserName"
+                        name="username"
+                        rules={[{ required: true, message: 'Please input login!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item<UserRegistrationRequest>
+                        label="Role"
+                        name="role"
                         rules={[{ required: true, message: 'Please input password!' }]}
                     >
                         <Input />

@@ -43,7 +43,7 @@ export default function OneOrder() {
 
 
     return (
-        <div >
+        <div>
             <br></br>
             <br></br>
             <h1>Страница одного заказа </h1>
@@ -58,6 +58,7 @@ export default function OneOrder() {
                         key={order?.id}
                         title={title}
                         variant={"outlined"}
+                        className="custom-card"
                     >
                         <p>Город отправления: <b>{order?.cityFrom}</b></p>
                         <p>Адрес забора груза: <b>{order?.adressFrom}</b></p>

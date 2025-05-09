@@ -7,12 +7,13 @@ import { createOrder, OrderRequest } from "@/app/Services/service";
 //import { Order } from "@/app/Models/Order";
 import { FormProps, Button, Form, Input, InputNumber, DatePicker, Space } from 'antd';
 import { useRouter } from 'next/navigation'; 
-//import moment from 'moment';
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";  
 
 
+
 export default function NewOrder() {
+    const token = localStorage.getItem('token');
     const router = useRouter();
     const [loading, setLoading] = useState(true);
 
@@ -21,15 +22,17 @@ export default function NewOrder() {
         setLoading(false);
     });  
 
+
     const onFinishFailed: FormProps<OrderRequest>['onFinishFailed'] = (errorInfo) => {
         console.log('Failed:', errorInfo);
     }
 
+
     const onFinish: FormProps<OrderRequest>['onFinish'] = (values) => {
         createOrder(values);
-        //console.log('values from NewOrder ', values);
         router.push("/allorders");       
     }
+
 
     return (
         <div >
@@ -37,7 +40,7 @@ export default function NewOrder() {
             <br></br>
             <br></br>
             <br></br>
-            {loading ? (
+            {!token ? (<h2>Надо залогиниться</h2>) : loading ? (
                 <Title>Loading ...</Title>
             ) : (
                 <Form
@@ -125,6 +128,6 @@ export default function NewOrder() {
                     </Form.Item>
                 </Form>
             )}
-            </div >
+                    </div >
         );
 }

@@ -1,5 +1,5 @@
-﻿//import { ModalComponent } from '../Components/ModalComponent';
-
+﻿//import ModalComponent from '../Components/ModalComponent';
+//import { useState } from 'react';
 
 
 export interface OrderRequest {
@@ -14,12 +14,14 @@ export interface OrderRequest {
 
 //name: string,
 export interface UserRegistrationRequest {
-    username: string;
+    email: string;
     password: string;
+    username: string;
+    role: string;
 }
 
 export interface UserLoginRequest {
-    username: string;
+    email: string;
     password: string;
 }
 
@@ -45,8 +47,7 @@ export interface CurrentUser {
 // CRUD
 export const getAllOrders = async (filter: FilterInterface) => {
     const token = localStorage.getItem('token');
-    try {
-        const response = await fetch("http://localhost:5134/orders", {
+    const response = await fetch("http://localhost:5134/orders", {
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': `Bearer ${token}`,
@@ -58,11 +59,23 @@ export const getAllOrders = async (filter: FilterInterface) => {
                 sortItem: filter?.sortItem,
                 sortOrder: filter?.sortOrder,
             },
+    })
+        .then((response) => {
+            if (!response.ok) {
+                window.location.href = 'noauthorized';
+            }
+            else {
+                return response.json();
+            }
+        })
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            console.log('Error: ', err);
         });
-        return response.json();     
-    } catch (e) {
-        console.error(e);
-    }
+    return response;
+
 };
 
 
@@ -133,7 +146,8 @@ export const deleteOrder = async (id: string) => {
 
 // privacy
 export const loginUser = async (request: UserLoginRequest) => {
-    let user: string = "";
+    //const [isOpen, setOpen] = useState(false);
+    let username: string = "";
     let token: string = ""
 
     await fetch("http://localhost:5134/auth/login", {
@@ -154,9 +168,9 @@ export const loginUser = async (request: UserLoginRequest) => {
             }
         })
         .then(data => {
-            user = data['userName'];
+            username = data['username'];
             token = data['token'];
-            localStorage.setItem('user', user);
+            localStorage.setItem('username', username);
             localStorage.setItem('token', token);
             window.location.href = 'allorders';
         })
@@ -167,6 +181,7 @@ export const loginUser = async (request: UserLoginRequest) => {
    
 
 export const registerUser = async (request: UserRegistrationRequest) => {
+    console.log('request: ', request);
     await fetch("http://localhost:5134/auth/register", {
         method: 'POST',
         mode: 'cors',
@@ -181,10 +196,10 @@ export const registerUser = async (request: UserRegistrationRequest) => {
             alert("User registration unsuccessful")
         }
         else {
-            window.location.href = 'login';
             alert("Регистрация прошла успешно\nТеперь надо залогиниться")
+            window.location.href = 'login';
         }
-    });
+    }); 
 }
 
 

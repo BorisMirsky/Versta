@@ -14,18 +14,18 @@ namespace Versta.Core.Models
         [Key]
         public Guid? Id { get; set; }             // = Guid.Empty;
         public string? UserName { get; set; } = "";
-        //public string? Name { get; set; } = "";
+        public string? Email { get; set; } = "";
         public string? Role { get; set; } = "";   //Everyone
         public bool? IsActive { get; set; } = false;
         public string? Token { get; set; } = "";
         public string? Password { get; set; } = "";   // PasswordHash
         //public (string, string)? Headers { get; set; } = ("", ""); 
 
-        public User(string userName, string password) //string name, string password, string role)  //Guid id,
+        public User(string email, string password) //, string userName, string role) //string name, string password, string role)  //Guid id,
         {
             //Id = id;
-            UserName = userName;
-            //Name = name;
+            //UserName = userName;
+            Email = email;
             Password = password;
             //Role = role;
         }

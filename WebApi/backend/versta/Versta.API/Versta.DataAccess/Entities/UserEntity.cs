@@ -17,8 +17,8 @@ namespace Versta.DataAccess.Entities
         [Column("username")]
         public string UserName { get; set; } = "";
 
-        //[Column("name")]
-        //public string Name { get; set; } = "";
+        [Column("email")]
+        public string Email { get; set; } = "";
 
         [Column("role")]
         public string Role { get; set; } = "";   //Everyone

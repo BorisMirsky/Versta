@@ -1,19 +1,17 @@
-﻿import React, { useState } from 'react';
+﻿'use client'
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 
 
 
+export default function ModalComponent(mode: boolean) {            
+    const [isModalOpen, setIsModalOpen] = useState(false); 
 
-//export default function ModalComponent(mode: boolean) {
-export const ModalComponent = (mode: boolean) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);     
-
-    if (mode) {
-        setIsModalOpen(true);
-    }
-    //const showModal = (mode) => {
-    //    setIsModalOpen(true);
-    //};
+    useEffect(() => {
+        if (mode) {
+            setIsModalOpen(true);
+        }
+    }, []);
 
     const handleOk = () => {
         setIsModalOpen(false);

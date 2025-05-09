@@ -38,13 +38,13 @@ namespace Versta.API.Controllers
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User userToRegister = new(request.UserName, request.Password);
+            User userToRegister = new(request.Email, request.Password); //, request.UserName, request.Role);
 
-            User loggedInUser = await _authService.Register(request.UserName!, request.Password);
+            User registeredInUser = await _authService.Register(request.UserName!, request.Password, request.UserName, request.Role);
 
-            if (loggedInUser != null)
+            if (registeredInUser != null)
             {
-                return Ok(loggedInUser);
+                return Ok(registeredInUser);
             }
 
             return BadRequest(new { message = "User registration unsuccessful" });
@@ -56,7 +56,7 @@ namespace Versta.API.Controllers
         [HttpPost] 
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            if (String.IsNullOrEmpty(request.UserName))
+            if (String.IsNullOrEmpty(request.Email))
             {
                 return BadRequest(new { message = "Email address needs to entered" });
             }
@@ -65,7 +65,7 @@ namespace Versta.API.Controllers
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User loggedInUser = await _authService.Login(request.UserName, request.Password);
+            User loggedInUser = await _authService.Login(request.Email, request.Password);
             //loggedInUser.Headers = ("Access-Control-Expose-Headers", "Authorization");
 
             if (loggedInUser != null)
