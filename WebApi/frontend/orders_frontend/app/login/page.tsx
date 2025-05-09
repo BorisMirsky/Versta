@@ -2,34 +2,26 @@
 
 import React from 'react';
 import { loginUser, UserLoginRequest } from "@/app/Services/service";   //loginResponse
-//import { getAllOrders } from "@/app/Services/service"; 
-//import { CreateOrderForm } from "@/app/Components/CreateOrderComponent";   
-//import { Order } from "@/app/Models/Order";
 import { FormProps, Button, Form, Input, Space } from 'antd';
-//import { useRouter } from 'next/navigation';
-//import moment from 'moment';
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
+//import ModalComponent from '../Components/ModalComponent';
 
 
 export default function Login() {
-    //const router = useRouter();
     const [loading, setLoading] = useState(true);
-    //let LoginResponce: object = {};
 
     useEffect(() => {
         setLoading(false);
     });
 
     const onFinishFailed: FormProps<UserLoginRequest>['onFinishFailed'] = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        console.log('onFinishFailed:', errorInfo);
     }
 
     const onFinish: FormProps<UserLoginRequest>['onFinish'] = (values) => {
         loginUser(values);
-        //router.push("/allorders");
     }
 
     return (

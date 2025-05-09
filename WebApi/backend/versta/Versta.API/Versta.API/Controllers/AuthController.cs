@@ -79,13 +79,13 @@ namespace Versta.API.Controllers
 
 
         [Route("Logout")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]  
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             Response.Headers.Remove("Authorization");
-            return RedirectToAction("/");
+            return Ok(); // RedirectToAction("/");
         }
 
 

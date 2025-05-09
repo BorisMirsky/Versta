@@ -14,7 +14,7 @@ namespace Versta.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize] //(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]   //(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersService _ordersService;

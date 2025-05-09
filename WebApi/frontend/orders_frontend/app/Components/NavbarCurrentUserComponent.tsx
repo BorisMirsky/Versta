@@ -1,17 +1,14 @@
 ﻿'use client'
 
-
 import React from 'react';
 import { useEffect, useState } from "react";
 
 
 export default function CurrentUserComponent() {
-    const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState("");
 
     useEffect(() => {
         const getUser = async () => {
-            setLoading(false);
             const result = localStorage.getItem("user") || "";
             setCurrentUser(result); 
         }
@@ -20,10 +17,10 @@ export default function CurrentUserComponent() {
 
     return (
         <div >
-            {loading ? (
-                <div>...</div>
-            ) : (
+            {currentUser ? (
                 <div>Вы вошли как <b>{currentUser}</b></div>
+            ) : (
+                <div></div>
             )}
         </div >
     );

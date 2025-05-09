@@ -1,4 +1,6 @@
 import styles from "./page.module.css";
+import LoginComponent from './Components/LoginComponent';
+import RegistrationComponent from './Components/RegistrationComponent';
 
 
 export default function Home() {
@@ -6,8 +8,8 @@ export default function Home() {
         <div className={styles.page}>
             <h1>Сайт заказов </h1>
             <div>
-            <h4><a href="/registration">Регистрация</a></h4>
-                <h4><a href="/login">Войти на сайт под своим логином</a></h4>
+              <LoginComponent />
+              <RegistrationComponent />
             </div>
         </div >
     );
