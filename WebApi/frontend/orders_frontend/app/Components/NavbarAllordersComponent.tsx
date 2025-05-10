@@ -10,7 +10,7 @@ export default function NavbarAllordersComponent() {
 
     useEffect(() => {
         const navbarAllorders = async () => {
-            const result = localStorage.getItem("user") || "";
+            const result = localStorage.getItem("username") || "";
             setCurrentUser(result);
         }
         navbarAllorders();

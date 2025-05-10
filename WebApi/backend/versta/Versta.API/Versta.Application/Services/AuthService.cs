@@ -42,14 +42,14 @@ namespace Versta.Application.Services
         }
 
 
-        public async Task<User> Register(string name, string password,
-            string email, string role)    // Task<User>
+        public async Task<User> Register(string email, string password,
+            string username, string role)    // Task<User>
         {
             var hashedPassword = BCrypt.HashPassword(password);
             UserEntity userEntity = new UserEntity
             {
                 Id = new Guid(),
-                UserName = name,
+                UserName = username,
                 Password = hashedPassword,
                 Email = email,
                 Role = role
@@ -57,7 +57,7 @@ namespace Versta.Application.Services
             _dbContext.Users.Add(userEntity!);
             await _dbContext.SaveChangesAsync();
 
-            User user = new User(name, hashedPassword);
+            User user = new User(email, hashedPassword);
             user.Id = userEntity.Id;
             user.UserName = userEntity.UserName;
             user.Role = userEntity.Role;
@@ -104,6 +104,8 @@ namespace Versta.Application.Services
             user.IsActive = true;
             user.Id = userEntity.Id;
             user.Password = userEntity.Password;
+            user.UserName = userEntity.UserName;
+            user.Role = userEntity.Role;
             return user;
         }
     }

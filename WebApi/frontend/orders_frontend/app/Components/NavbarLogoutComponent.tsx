@@ -11,7 +11,7 @@ export default function LogoutComponent() {
 
     useEffect(() => {
         const logoutUser = async () => {
-            const result = localStorage.getItem("user") || "";
+            const result = localStorage.getItem("username") || "";
             setCurrentUser(result);
         }
         logoutUser();

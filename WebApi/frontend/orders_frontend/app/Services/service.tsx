@@ -168,7 +168,8 @@ export const loginUser = async (request: UserLoginRequest) => {
             }
         })
         .then(data => {
-            username = data['username'];
+            console.log('Data: ', data);
+            username = data['userName'];
             token = data['token'];
             localStorage.setItem('username', username);
             localStorage.setItem('token', token);
@@ -204,6 +205,6 @@ export const registerUser = async (request: UserRegistrationRequest) => {
 
 
 export const logOut = async () => {
-    await fetch("http://localhost:5134/auth/logout/");
+    await fetch("http://localhost:5134/auth/logout/");    //   особого смысла нет
 }
 

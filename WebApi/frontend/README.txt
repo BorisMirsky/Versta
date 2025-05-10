@@ -31,7 +31,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
           import '@ant-design/v5-patch-for-react-19';  
 
 
-
+Авторизация с JWT. Сохранение в LocalStorage (не лучший вариант, но тут ок).
 ##############################################################################
 
 TODO
@@ -52,14 +52,9 @@ TODO
     This could happen for one of the following reasons:
   https://ru.legacy.reactjs.org/warnings/invalid-hook-call-warning.html
 
+
+
 #####################################
-
-5) добавить:
-      колонку в таблице (email)
-      соответствующее поле, инпут и т.д. 
-
-
-
 
 6) авторизация по ролям (admin, manager, visitor)
    сделать юзера админ, который один имеет право регистрировать новых юзеров

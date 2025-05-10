@@ -13,7 +13,7 @@ using System.Diagnostics;
 namespace Versta.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]  //[action]
+    [Route("[controller]")]  
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -38,13 +38,16 @@ namespace Versta.API.Controllers
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User userToRegister = new(request.Email, request.Password); //, request.UserName, request.Role);
+            //User userToRegister = new(request.Email, request.Password); //, request.UserName, request.Role);
 
-            User registeredInUser = await _authService.Register(request.UserName!, request.Password, request.UserName, request.Role);
+            User registeredUser = await _authService.Register(request.Email, 
+                                                                request.Password, 
+                                                                request.UserName, 
+                                                                request.Role);
 
-            if (registeredInUser != null)
+            if (registeredUser != null)
             {
-                return Ok(registeredInUser);
+                return Ok(registeredUser);
             }
 
             return BadRequest(new { message = "User registration unsuccessful" });
@@ -66,11 +69,9 @@ namespace Versta.API.Controllers
             }
 
             User loggedInUser = await _authService.Login(request.Email, request.Password);
-            //loggedInUser.Headers = ("Access-Control-Expose-Headers", "Authorization");
 
             if (loggedInUser != null)
             {
-                //Debug.WriteLine("loggedInUser: ", loggedInUser);
                 return Ok(loggedInUser);
             }
 
@@ -79,13 +80,12 @@ namespace Versta.API.Controllers
 
 
         [Route("Logout")]
-        //[AllowAnonymous]
         [HttpPost]  
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             Response.Headers.Remove("Authorization");
-            return Ok(); // RedirectToAction("/");
+            return Ok();
         }
 
 
@@ -117,5 +117,3 @@ namespace Versta.API.Controllers
 }
 
 
-// from register
-//User registeredUser = await _authService.Register(userToRegister.UserName, userToRegister.Password);

@@ -22,7 +22,7 @@ export default function Registration() {
 
     useEffect(() => {
         setLoading(false);
-    });
+    }, []);
 
     const onFinishFailed: FormProps<UserRegistrationRequest>['onFinishFailed'] = (errorInfo) => {
         console.log('Failed:', errorInfo);

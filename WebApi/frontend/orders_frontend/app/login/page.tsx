@@ -13,8 +13,9 @@ export default function Login() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        //localStorage.clear();
         setLoading(false);
-    });
+    }, []);
 
     const onFinishFailed: FormProps<UserLoginRequest>['onFinishFailed'] = (errorInfo) => {
         console.log('onFinishFailed:', errorInfo);

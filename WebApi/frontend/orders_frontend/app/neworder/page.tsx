@@ -14,13 +14,14 @@ import { useEffect, useState } from "react";
 
 export default function NewOrder() {
     const token = localStorage.getItem('token');
+    //console.log('token:', token, localStorage.getItem('username'));
     const router = useRouter();
     const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
         setLoading(false);
-    });  
+    }, []);  
 
 
     const onFinishFailed: FormProps<OrderRequest>['onFinishFailed'] = (errorInfo) => {

@@ -12,7 +12,7 @@ export default function NavbarNeworderComponent() {
 
     useEffect(() => {
         const navbarNeworder = async () => {
-            const result = localStorage.getItem("user") || "";
+            const result = localStorage.getItem("username") || "";
             setCurrentUser(result);
         }
         navbarNeworder();
