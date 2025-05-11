@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function NavbarAllordersComponent() {
-    const [currentUser, setCurrentUser] = useState("");
+    const [currentUserRole, setCurrentUserRole] = useState("");
 
     useEffect(() => {
         const navbarAllorders = async () => {
-            const result = localStorage.getItem("username") || "";
-            setCurrentUser(result);
+            const role = localStorage.getItem("role") || "";
+            setCurrentUserRole(role);
         }
         navbarAllorders();
     }, []);
@@ -19,7 +19,7 @@ export default function NavbarAllordersComponent() {
 
     return (
         <div >
-            {currentUser ? (
+            {(currentUserRole != "admin" && currentUserRole != "") ? (
                 <Link href="/allorders">All Orders</Link>
             ) : (
                 <div></div>

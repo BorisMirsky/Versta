@@ -6,8 +6,8 @@ using Versta.API.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
-using System.Diagnostics;                    
-
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
 namespace Versta.API.Controllers
@@ -25,8 +25,8 @@ namespace Versta.API.Controllers
 
 
         [Route("Register")]
-        [AllowAnonymous]
-        [HttpPost] 
+        [HttpPost]    //   ->  [HttpPost("register")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (String.IsNullOrEmpty(request.UserName))
@@ -37,8 +37,6 @@ namespace Versta.API.Controllers
             {
                 return BadRequest(new { message = "Password needs to entered" });
             }
-
-            //User userToRegister = new(request.Email, request.Password); //, request.UserName, request.Role);
 
             User registeredUser = await _authService.Register(request.Email, 
                                                                 request.Password, 
@@ -55,8 +53,7 @@ namespace Versta.API.Controllers
 
 
         [Route("Login")]
-        [AllowAnonymous]
-        [HttpPost] 
+        [HttpPost]   //   ->        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (String.IsNullOrEmpty(request.Email))
@@ -79,6 +76,7 @@ namespace Versta.API.Controllers
         }
 
 
+
         [Route("Logout")]
         [HttpPost]  
         public async Task<IActionResult> Logout()
@@ -87,7 +85,6 @@ namespace Versta.API.Controllers
             Response.Headers.Remove("Authorization");
             return Ok();
         }
-
 
 
         [Authorize(Roles = "Everyone")]

@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function RegistrationComponent() {
-    const [currentUser, setCurrentUser] = useState("");
+    const [currentRole, setCurrentRole] = useState("");
 
     useEffect(() => {
         const Register = async () => {
-            const result = localStorage.getItem("user") || "";
-            setCurrentUser(result);
+            const role = localStorage.getItem("role") || "";
+            setCurrentRole(role);
         }
         Register();
     }, []);
@@ -19,12 +19,16 @@ export default function RegistrationComponent() {
 
     return (
         <div >
-            {currentUser ? (
-                <div></div>
-            ) : (
+            {
+                (currentRole === 'admin') ? (
                     <h4><Link href="/registration">Регистрация</Link></h4>
-            )}
+                ) : (
+                    <div></div>
+                )
+            }
 
         </div >
     );
 }
+
+

@@ -76,3 +76,12 @@
 
 
 
+admin@gmail.com
+adminpassword
+adminname
+admin
+
+visitor1@gmail.com
+visitor1password
+visitor1name
+visitor

@@ -32,11 +32,10 @@ export interface FilterInterface {
 }
 
 
-//name: = "";
 export interface CurrentUser {
     id: ""; 
     username: "";
-    role: "";   //Everyone
+    role: "";   
     isactive: boolean;
     token: "";
     password: "";   
@@ -149,6 +148,7 @@ export const loginUser = async (request: UserLoginRequest) => {
     //const [isOpen, setOpen] = useState(false);
     let username: string = "";
     let token: string = ""
+    let role: string = "";
 
     await fetch("http://localhost:5134/auth/login", {
         method: 'POST',
@@ -170,10 +170,12 @@ export const loginUser = async (request: UserLoginRequest) => {
         .then(data => {
             console.log('Data: ', data);
             username = data['userName'];
+            role = data['role'];
             token = data['token'];
             localStorage.setItem('username', username);
+            localStorage.setItem('role', role);
             localStorage.setItem('token', token);
-            window.location.href = 'allorders';
+            window.location.href = '/';
         })
         .catch(err => {
              console.log('Error: ', err);

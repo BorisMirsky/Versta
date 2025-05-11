@@ -7,18 +7,19 @@ using Versta.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Versta.Core.Models;
 
 namespace Versta.DataAccess
 {
     public class VerstaDbContext : DbContext
     {
-        //readonly StreamWriter logStream = new StreamWriter("mylog.txt", true);
         public VerstaDbContext(DbContextOptions<VerstaDbContext> options)
                 : base(options)
         {
         }
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.LogTo(logStream.WriteLine);

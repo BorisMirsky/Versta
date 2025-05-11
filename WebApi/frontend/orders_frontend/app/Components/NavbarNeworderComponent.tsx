@@ -8,12 +8,12 @@ import Link from "next/link";
 
 
 export default function NavbarNeworderComponent() {
-    const [currentUser, setCurrentUser] = useState("");
+    const [currentUserRole, setCurrentUserRole] = useState("");
 
     useEffect(() => {
         const navbarNeworder = async () => {
-            const result = localStorage.getItem("username") || "";
-            setCurrentUser(result);
+            const role = localStorage.getItem("role") || "";
+            setCurrentUserRole(role);
         }
         navbarNeworder();
     }, []);
@@ -21,7 +21,7 @@ export default function NavbarNeworderComponent() {
 
     return (
         <div >
-            {currentUser ? (
+            {(currentUserRole != "admin" && currentUserRole != "visitor" && currentUserRole != "") ? (
                 <Link href="/neworder">New order</Link>
             ) : (
                 <div></div>

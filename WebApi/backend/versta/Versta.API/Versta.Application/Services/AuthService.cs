@@ -16,16 +16,16 @@ using System.Security.Claims;
 using System.Web;
 using BCrypt.Net;
 using Microsoft.Extensions.Configuration;
-
-
+using Microsoft.AspNetCore.Authentication.JwtBearer; 
 
 
 
 namespace Versta.Application.Services
 {
     using BCrypt.Net;
-    using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
-    using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+    using Microsoft.AspNetCore.Authorization;
+    //using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
+    //using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
     public class AuthService : IAuthService
     {
@@ -41,7 +41,7 @@ namespace Versta.Application.Services
             //_accountRepo = accountRepo;
         }
 
-
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<User> Register(string email, string password,
             string username, string role)    // Task<User>
         {
@@ -57,7 +57,7 @@ namespace Versta.Application.Services
             _dbContext.Users.Add(userEntity!);
             await _dbContext.SaveChangesAsync();
 
-            User user = new User(email, hashedPassword);
+            User user = new User(email, hashedPassword, role);
             user.Id = userEntity.Id;
             user.UserName = userEntity.UserName;
             user.Role = userEntity.Role;
@@ -74,7 +74,7 @@ namespace Versta.Application.Services
             {
                 return null;
             }
-            User user = new User(email, password); 
+            User user = new User(email, password, userEntity.Role); 
             // if password is wrong
             if (user == null || BCrypt.Verify(password, userEntity.Password) == false)  
             {

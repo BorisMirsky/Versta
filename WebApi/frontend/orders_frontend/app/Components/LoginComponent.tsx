@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function LoginComponent() {
-    const [currentUser, setCurrentUser] = useState("");
+    const [currentUserToken, setCurrentUserToken] = useState("");
 
     useEffect(() => {
         const logIn = async () => {
-            const result = localStorage.getItem("user") || "";
-            setCurrentUser(result);
+            const token = localStorage.getItem("token") || "";
+            setCurrentUserToken(token);
         }
         logIn();
     }, []);
@@ -19,7 +19,7 @@ export default function LoginComponent() {
 
     return (
         <div >
-            {currentUser ? (
+            {currentUserToken ? (
                 <div></div>
             ) : (
                    <h4><Link href="/login">Войти на сайт под своим логином</Link></h4>

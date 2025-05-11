@@ -14,7 +14,7 @@ namespace Versta.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]   //(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersService _ordersService;
@@ -25,6 +25,7 @@ namespace Versta.API.Controllers
 
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "visitor, manager")]
         public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders([FromQuery] OrdersSearchRequest request)
         {
             var orders = await _ordersService.GetAllOrders(request?.Search, 
@@ -37,7 +38,8 @@ namespace Versta.API.Controllers
         }
 
 
-        [HttpGet("{id}")]   
+        [HttpGet("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "visitor, manager")]
         public async Task<ActionResult<OrdersResponse>> GetOneOrder(Guid id)  
         {
             var order = await _ordersService.GetOneOrder(id);
@@ -46,6 +48,7 @@ namespace Versta.API.Controllers
          
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "manager")]
         public async Task<ActionResult<Guid>> CreateOrder([FromBody] OrdersRequest request)
         {
             var (order, error) = Order.Create(
@@ -69,6 +72,7 @@ namespace Versta.API.Controllers
 
 
         [HttpPut("{id:guid}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "manager")]
         public async Task<ActionResult<Guid>> UpdateOrder(Guid id, [FromBody] OrdersRequest request)
         {
             var orderId = await _ordersService.UpdateOrder(id, 
@@ -80,6 +84,7 @@ namespace Versta.API.Controllers
 
 
         [HttpDelete("{id:guid}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "manager")]
         public void DeleteOrder(Guid id)
         //public async Task<ActionResult<List<OrdersResponse>>> DeleteOrder(Guid id)
         {
