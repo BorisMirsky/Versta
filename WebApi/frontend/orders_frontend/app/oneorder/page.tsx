@@ -20,12 +20,15 @@ export default function OneOrder() {
     const searchParams = useSearchParams();
     const params = new URLSearchParams(searchParams);
     const id = params.toString().split("=")[1];
+    const [currentRole, setCurrentRole] = useState("");
 
     useEffect(() => {
         const getOrder = async () => {
             const responce = await getOneOrder(id);
             setLoading(false);
             setOrder(responce);
+            const role = localStorage.getItem("role") || "";
+            setCurrentRole(role);
         };
         getOrder();
     });     
@@ -69,7 +72,10 @@ export default function OneOrder() {
                         <p>Отметки: <b>{order?.specialNote}</b></p>
                         <br></br>
                         <br></br>
-                        <br></br>
+                            <br></br>
+                            {
+                                (currentRole === 'manager') ? (
+                            <div>
                         <div className="card_buttons">
                             <Button
                                 onClick={() => handleUpdate()}
@@ -82,7 +88,12 @@ export default function OneOrder() {
                                 style={{ flex: 1 }}
                             >
                                 Удалить</Button>
-                        </div>
+                                </div>
+                            </div>
+                                ) : (
+                                    <div></div>
+                                )
+                            }
                                 </Card>
                 )}
             </div>

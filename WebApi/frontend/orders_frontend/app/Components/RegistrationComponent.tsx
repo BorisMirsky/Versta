@@ -11,6 +11,7 @@ export default function RegistrationComponent() {
     useEffect(() => {
         const Register = async () => {
             const role = localStorage.getItem("role") || "";
+            console.log('role from register ', role)
             setCurrentRole(role);
         }
         Register();

@@ -10,9 +10,12 @@ import Link from "next/link";
 
 
 export default function Login() {
+    const [currentRole, setCurrentRole] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const role = localStorage.getItem("role") || "";
+        setCurrentRole(role);
         //localStorage.clear();
         setLoading(false);
     }, []);
@@ -27,6 +30,9 @@ export default function Login() {
     }
 
     return (
+        <div>
+            {
+                (!currentRole) ? (
         <div >
             <h1>Войти под своим логином</h1>
             <br></br>
@@ -93,6 +99,11 @@ export default function Login() {
                 >Регистрация
                 </Link>
             </p>
-        </div >
+                    </div >
+                ) : (
+                    <div><br /><br /><br /><h2>Тут нет ничего</h2></div>
+                )
+            }
+        </div>
     );
 }

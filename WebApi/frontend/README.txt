@@ -32,31 +32,31 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 
 
 Авторизация с JWT. Сохранение в LocalStorage (не лучший вариант, но тут ок).
+
+
 ##############################################################################
+
+
 
 TODO
 
    
-1) не сохраняет ордер, если поле заметка пустое
-
-2) Delete отвалился
+1) Delete отвалился
 При удалении на Сваггере всё чисто.
 При удалении с фронта почему то вызывается метод getOneOrder.
 
-3) поиск и сортировка с фронта не работают
-
-#########################################################
-      
-4) Login, Registration --> Modal
+2) поиск и сортировка с фронта не работают
+  
+3) Login, Registration --> Modal
     Invalid hook call. Hooks can only be called inside of the body of a function component. 
     This could happen for one of the following reasons:
   https://ru.legacy.reactjs.org/warnings/invalid-hook-call-warning.html
 
-6) Решить вопрос - как заносить первого админа
+4) Решить вопрос - как заносить первого админа (пока что вручную через админку постгреса)
 
-7) сделать обработку ситуации: попытка залогиниться при невышедшем пользователе
 
-8) страница одного заказа - спрять две кнопки от визитора
+
+
 
 
 

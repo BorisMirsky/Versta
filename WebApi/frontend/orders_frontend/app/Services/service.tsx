@@ -9,7 +9,7 @@ export interface OrderRequest {
     adressTo: string;
     weight: number,
     date: Date,
-    specialNote?: string
+    specialNote?: string 
 }
 
 //name: string,
@@ -106,6 +106,7 @@ export const getOneOrder = async (id: string) => {
 
 
 export const createOrder = async (orderRequest: OrderRequest) => {
+    console.log('orderRequest ', orderRequest)
     const token = localStorage.getItem('token');
     await fetch("http://localhost:5134/orders/", {
         method: 'POST',
@@ -114,7 +115,7 @@ export const createOrder = async (orderRequest: OrderRequest) => {
             'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(orderRequest)
-    });  
+    }).catch(error => console.log("createOrderError: ", error));
 }
 
 
@@ -168,7 +169,7 @@ export const loginUser = async (request: UserLoginRequest) => {
             }
         })
         .then(data => {
-            console.log('Data: ', data);
+            //console.log('Data: ', data);
             username = data['userName'];
             role = data['role'];
             token = data['token'];
@@ -184,12 +185,14 @@ export const loginUser = async (request: UserLoginRequest) => {
    
 
 export const registerUser = async (request: UserRegistrationRequest) => {
-    console.log('request: ', request);
+    //console.log('request: ', request);
+    const token = localStorage.getItem('token');
     await fetch("http://localhost:5134/auth/register", {
         method: 'POST',
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(request)
     }).then(response => {

@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 
 export default function NewOrder() {
-    const token = localStorage.getItem('token');
+    const [currentRole, setCurrentRole] = useState("");
     //console.log('token:', token, localStorage.getItem('username'));
     const router = useRouter();
     const [loading, setLoading] = useState(true);
@@ -21,6 +21,8 @@ export default function NewOrder() {
 
     useEffect(() => {
         setLoading(false);
+        const role = localStorage.getItem("role") || "";
+        setCurrentRole(role);
     }, []);  
 
 
@@ -31,17 +33,21 @@ export default function NewOrder() {
 
     const onFinish: FormProps<OrderRequest>['onFinish'] = (values) => {
         createOrder(values);
+        console.log('values ', values);
         router.push("/allorders");       
     }
 
 
     return (
+        <div>
+            {
+                (currentRole === 'manager') ? (
         <div >
             <h1>Создание нового заказа </h1>
             <br></br>
             <br></br>
             <br></br>
-            {!token ? (<h2>Надо залогиниться</h2>) : loading ? (
+            {loading ? (
                 <Title>Loading ...</Title>
             ) : (
                 <Form
@@ -108,6 +114,7 @@ export default function NewOrder() {
                         label="Special Note"
                         name="specialNote"
                         rules={[{ required: false }]}
+                        initialValue=""
                     >
                         <Input.TextArea />
                     </Form.Item>
@@ -130,5 +137,10 @@ export default function NewOrder() {
                 </Form>
             )}
                     </div >
+                ) : (
+                    <div></div>
+                )
+            }
+                    </div>
         );
 }

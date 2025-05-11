@@ -26,7 +26,7 @@ namespace Versta.API.Controllers
 
         [Route("Register")]
         [HttpPost]    //   ->  [HttpPost("register")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (String.IsNullOrEmpty(request.UserName))
