@@ -25,7 +25,7 @@ builder.Services.AddScoped<IOrdersRepo, OrdersRepo>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Auth start
-builder.Services.AddScoped<IAuthService, AuthService>();
+//builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

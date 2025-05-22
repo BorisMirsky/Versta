@@ -33,7 +33,7 @@ export default function NewOrder() {
 
     const onFinish: FormProps<OrderRequest>['onFinish'] = (values) => {
         createOrder(values);
-        console.log('values ', values);
+        //console.log('values ', values);
         router.push("/allorders");       
     }
 
@@ -141,6 +141,6 @@ export default function NewOrder() {
                     <div></div>
                 )
             }
-                    </div>
+       </div>
         );
 }

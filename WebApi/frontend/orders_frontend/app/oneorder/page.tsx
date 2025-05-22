@@ -36,8 +36,8 @@ export default function OneOrder() {
     const title = "Заказ id = " + order?.id;  
 
     const handleDelete = async (id: string) => {
+        //router.push("allorders");        //allorders
         await deleteOrder(id);
-        router.push("/");        //allorders
     };
 
     const handleUpdate = async () => {

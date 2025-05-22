@@ -17,6 +17,6 @@ namespace Versta.Core.Abstractions
             string cityTo, string adressTo, decimal weight,
             DateTime date, string specialNote);
         //Task<List<Order>> Delete(Guid id);
-        void Delete(Guid id);
+        Task<Guid> Delete(Guid id);
     }
 }

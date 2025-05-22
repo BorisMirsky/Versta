@@ -45,12 +45,20 @@ TODO
 При удалении на Сваггере всё чисто.
 При удалении с фронта почему то вызывается метод getOneOrder.
 
+
 2) поиск и сортировка с фронта не работают
+   Поиск по городу отправки
+   Сортировка - сначала новые\старые
+   ###
+   На сваггере 3 инпута: Search (поиск), SortItem (?), SortOrder (новый\старый)
+   
   
 3) Login, Registration --> Modal
     Invalid hook call. Hooks can only be called inside of the body of a function component. 
     This could happen for one of the following reasons:
   https://ru.legacy.reactjs.org/warnings/invalid-hook-call-warning.html
+
+4) allorders - переделать поведение при несанкционированном доступе (не те роли либо незалогиненный)
 
 4) Решить вопрос - как заносить первого админа (пока что вручную через админку постгреса)
 

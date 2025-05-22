@@ -13,6 +13,7 @@ import SelectComponent from '../Components/SelectComponent';
 
 
 export default function AllOrders() {
+    const [currentRole, setCurrentRole] = useState("");
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({
@@ -86,6 +87,8 @@ export default function AllOrders() {
 
 
     useEffect(() => {
+        const role = localStorage.getItem("role") || "";
+        setCurrentRole(role);
         const getOrders = async () => {
             const responce = await getAllOrders(filter);
             setLoading(false);
@@ -109,7 +112,11 @@ export default function AllOrders() {
 
 
     return (
-        <div><br></br><br></br><br></br><br></br>
+        <div>
+            {
+                (currentRole == 'manager' || currentRole == 'visitor') ? (
+        <div>
+            <br></br><br></br><br></br><br></br>
             <h1>Все заказы</h1>
             <br></br><br></br><br></br><br></br>
             <br></br><br></br><br></br><br></br>
@@ -130,7 +137,12 @@ export default function AllOrders() {
                         />
                 </div>
             )}
-        </div >
+            </div >
+                ) : (
+                    <div></div>
+                )
+            }
+            </div>
     );
 }
 

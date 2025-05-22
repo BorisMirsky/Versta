@@ -132,15 +132,19 @@ export const updateOrder = async (id: string, orderRequest: OrderRequest) => {
 }
 
 
+//const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export const deleteOrder = async (id: string) => {
     const token = localStorage.getItem('token');
     await fetch('http://localhost:5134/orders/' + id, {
+        method: 'DELETE',
         headers: {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`,
-        },
-        method: 'DELETE'
+        }
     });
+    //await delay(3000);
+    window.location.href = 'allorders'; 
 }
 
 

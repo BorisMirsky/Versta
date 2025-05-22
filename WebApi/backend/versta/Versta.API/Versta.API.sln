@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.txt = README.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versta.Contracts", "Versta.Contracts\Versta.Contracts.csproj", "{E04740D6-5C95-43DD-A5AF-C3760B30E24B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versta.Contracts1", "Versta.Contracts\Versta.Contracts1.csproj", "{E04740D6-5C95-43DD-A5AF-C3760B30E24B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
