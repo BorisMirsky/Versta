@@ -27,14 +27,12 @@ namespace Versta.API.Controllers
 
         [HttpGet]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "visitor, manager")]
-        public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders([FromQuery] OrdersSearchRequest request)
+        public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders() //[FromQuery] OrdersSearchRequest request)
         {
-            var orders = await _ordersService.GetAllOrders(request?.Search, 
-                                                           request?.SortItem,
-                                                           request?.SortOrder);
+            var orders = await _ordersService.GetAllOrders();  //request?.Search, request?.SortItem, request?.SortOrder);
             var responce = orders.Select(o => new OrdersResponse(o.Id, o.CityFrom,
-                o.AdressFrom, o.CityTo, o.AdressTo,
-                o.Weight, o.Date, o.SpecialNote));
+                                         o.AdressFrom, o.CityTo, o.AdressTo,
+                                         o.Weight, o.Date, o.SpecialNote));
             return Ok(responce);
         }
 
@@ -73,7 +71,7 @@ namespace Versta.API.Controllers
 
 
         [HttpPut("{id:guid}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "manager")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "manager")]
         public async Task<ActionResult<Guid>> UpdateOrder(Guid id, [FromBody] OrdersRequest request)
         {
             var orderId = await _ordersService.UpdateOrder(id, 

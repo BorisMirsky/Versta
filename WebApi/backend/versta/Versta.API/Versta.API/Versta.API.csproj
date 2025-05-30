@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Versta.Application\Versta.Application.csproj" />
-    <ProjectReference Include="..\Versta.Contracts\Versta.Contracts1.csproj" />
     <ProjectReference Include="..\Versta.Core\Versta.Core.csproj" />
     <ProjectReference Include="..\Versta.DataAccess\Versta.DataAccess.csproj" />
   </ItemGroup>

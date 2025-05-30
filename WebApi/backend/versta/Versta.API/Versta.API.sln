@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.txt = README.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Versta.Contracts1", "Versta.Contracts\Versta.Contracts1.csproj", "{E04740D6-5C95-43DD-A5AF-C3760B30E24B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,10 +38,6 @@ Global
 		{62748981-AEA7-4473-A2AC-573279BD3572}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62748981-AEA7-4473-A2AC-573279BD3572}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62748981-AEA7-4473-A2AC-573279BD3572}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E04740D6-5C95-43DD-A5AF-C3760B30E24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E04740D6-5C95-43DD-A5AF-C3760B30E24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E04740D6-5C95-43DD-A5AF-C3760B30E24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E04740D6-5C95-43DD-A5AF-C3760B30E24B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

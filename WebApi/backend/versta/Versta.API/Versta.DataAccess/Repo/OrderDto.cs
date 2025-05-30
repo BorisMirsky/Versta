@@ -1,7 +1,12 @@
-﻿namespace Versta.API.Contracts
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Versta.DataAccess.Repo
 {
-    public record OrdersResponse
-        (
+    public record OrderDto(
         Guid Id,
         string CityFrom,
         string AdressFrom,
@@ -10,5 +15,6 @@
         decimal Weight,
         DateTime Date,
         string? SpecialNote
-        );
+    );
 }
+

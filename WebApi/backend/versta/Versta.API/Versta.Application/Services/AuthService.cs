@@ -46,7 +46,7 @@ namespace Versta.Application.Services
             string username, string role)    // Task<User>
         {
             var hashedPassword = BCrypt.HashPassword(password);
-            UserEntity userEntity = new UserEntity
+            User userEntity = new User
             {
                 Id = new Guid(),
                 UserName = username,
@@ -67,14 +67,14 @@ namespace Versta.Application.Services
 
         public async Task<User> Login(string email, string password)
         {
-            UserEntity userEntity = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);// && u.Password == password);
+            User userEntity = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);// && u.Password == password);
             //Person? person = people.FirstOrDefault(p => p.Email == loginData.Email && p.Password == loginData.Password);
             // if login is wrong                                                                                                 // if login is wrong
             if (userEntity == null)
             {
                 return null;
             }
-            User user = new User(email, password, userEntity.Role); 
+            User user = new User(email, password, userEntity.Role!); 
             // if password is wrong
             if (user == null || BCrypt.Verify(password, userEntity.Password) == false)  
             {

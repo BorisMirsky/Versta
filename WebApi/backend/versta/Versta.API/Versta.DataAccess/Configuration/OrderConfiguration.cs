@@ -12,12 +12,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Versta.DataAccess.Configuration
 {
-    public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
+    public class OrderConfiguration : IEntityTypeConfiguration<Order>   
     {
-        public void Configure(EntityTypeBuilder<OrderEntity> builder)
+        public void Configure(EntityTypeBuilder<Order> builder)  
         {
             // throw new NotImplementedException();
-            builder.HasKey(x => x.Id);
+            builder.HasKey(o => o.Id);
             builder.Property(o => o.SpecialNote)
                   .HasMaxLength(Order.MAX_NOTE_LEN)
                   .IsRequired();

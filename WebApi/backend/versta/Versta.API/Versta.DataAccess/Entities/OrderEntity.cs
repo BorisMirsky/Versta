@@ -13,18 +13,25 @@ namespace Versta.DataAccess.Entities
     {
         [Column("id")]
         public Guid Id { get; set; }
+
         [Column("cityfrom")]
         public string CityFrom { get; set; } = string.Empty;
+
         [Column("adressfrom")]
         public string AdressFrom { get; set; } = string.Empty;
+
         [Column("cityto")]
         public string CityTo { get; set; } = string.Empty;
+
         [Column("adressto")]
         public string AdressTo { get; set; } = string.Empty;
+
         [Column("weight")]
         public decimal Weight { get; set; }
+
         [Column("date")]
         public DateTime Date { get; set; }
+
         [Column("specialnote")]
         public string? SpecialNote { get; set; } = string.Empty;
     }
