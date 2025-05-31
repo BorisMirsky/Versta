@@ -1,13 +1,10 @@
 ﻿using Versta.Core.Abstractions;
 using Versta.Core.Models;
 using Versta.API.Contracts;
-//using Versta.Contracts.Contracts;
-//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
-//using System;
 
 
 
@@ -27,9 +24,9 @@ namespace Versta.API.Controllers
 
         [HttpGet]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "visitor, manager")]
-        public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders() //[FromQuery] OrdersSearchRequest request)
+        public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders([FromQuery] OrdersSearchRequest request)
         {
-            var orders = await _ordersService.GetAllOrders();  //request?.Search, request?.SortItem, request?.SortOrder);
+            var orders = await _ordersService.GetAllOrders(request?.Search, request?.SortItem, request?.SortOrder);
             var responce = orders.Select(o => new OrdersResponse(o.Id, o.CityFrom,
                                          o.AdressFrom, o.CityTo, o.AdressTo,
                                          o.Weight, o.Date, o.SpecialNote));

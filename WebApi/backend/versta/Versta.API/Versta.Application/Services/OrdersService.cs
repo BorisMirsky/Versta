@@ -19,9 +19,9 @@ namespace Versta.Application.Services
         }
 
         // Task<List<Order>>  Task<IActionResult>
-        public async Task<List<Order>> GetAllOrders() // string? Search, string? SortItem, string? SortOrder)
+        public async Task<List<Order>> GetAllOrders(string? Search, string? SortItem, string? SortOrder)
         {
-            return await _ordersRepo.Get(); // Search, SortItem, SortOrder);
+            return await _ordersRepo.Get(Search, SortItem, SortOrder);
         }
 
         public async Task<Order> GetOneOrder(Guid id)

@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Versta.Core.Models;
-using Versta.DataAccess.Entities;
+//using Versta.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
 
 namespace Versta.DataAccess.Configuration
 {
-    public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<UserEntity> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             // throw new NotImplementedException();
             builder.HasKey(u => u.Id);

@@ -7,7 +7,6 @@ using Versta.Core.Models;
 using Versta.Core.Abstractions;
 using Versta.DataAccess;
 using Versta.DataAccess.Repo;
-using Versta.DataAccess.Entities;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;

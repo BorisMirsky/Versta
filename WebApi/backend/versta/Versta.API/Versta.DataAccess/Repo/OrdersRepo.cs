@@ -1,17 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Versta.Core.Models;
 using Versta.Core.Abstractions;
-using Versta.DataAccess.Repo;
-using Versta.DataAccess.Entities;
-//using Versta.Contracts.Contracts;
-using System.Linq.Expressions;
-using System.Linq;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Mvc;
-using System;
-//using Microsoft.AspNetCore.Mvc;
+
 
 
 
@@ -27,7 +17,7 @@ namespace Versta.DataAccess.Repo
             _context = context;
         }
 
-        public async Task<List<Order>> Get() //string? Search, string? SortItem, string? SortOrder)                                      
+        public async Task<List<Order>> Get(string? Search, string? SortItem, string? SortOrder)                                      
         {
             //var ordersQuery = _context.Orders
             //        .Where(o => string.IsNullOrWhiteSpace(Search) ||
@@ -78,50 +68,20 @@ namespace Versta.DataAccess.Repo
         }
 
 
-        // Task<Order> Get(Guid id);
         public async Task<Order> Get(Guid id) 
         {
-            //var orderEntities = await _context.Orders
-            //    .AsNoTracking()
-            //    .ToListAsync();
-            //var orderEntity = orderEntities
-            //   .Where(item => item.Id == id)
-            //   .ToList()
-            //   .FirstOrDefault();
-            //if (orderEntity == null)
-            //{
-            //    Debug.WriteLine("Order with id {id} not found");
-            //    throw new Exception($"Order with id {id} not found");
-            //}
-            //var order = Order.Create(orderEntity!.Id, orderEntity.CityFrom,
-            //                            orderEntity.AdressFrom, orderEntity.CityTo, 
-            //                            orderEntity.AdressTo, orderEntity.Weight,
-            //                            orderEntity.Date, orderEntity.SpecialNote).order;
-            //return order;
             Order? ord =  await _context.Orders
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync(c => c.Id == id);
             return ord!;
-            //return ord;
         }
 
 
         public async Task<Guid> Create(Order order)
         {
-            //var orderEntity = new OrderEntity
-            //{
-            //    Id = order.Id,
-            //    CityFrom = order.CityFrom,
-            //    AdressFrom = order.AdressFrom,
-            //    CityTo = order.CityTo,
-            //    AdressTo = order.AdressTo,
-            //    Weight = order.Weight,
-            //    Date = order.Date,
-            //    SpecialNote = order.SpecialNote
-            //};
-            await _context.Orders.AddAsync(order); // Entity);
+            await _context.Orders.AddAsync(order); 
             await _context.SaveChangesAsync();
-            return order.Id;   //orderEntity.Id;  
+            return order.Id;   
         }
 
 
