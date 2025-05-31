@@ -8,19 +8,20 @@ using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Versta.Application.Services;
 
 
 namespace Versta.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]  
-    public class AuthController : ControllerBase
+    public class AccountController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IAccountService _accountService;
 
-        public AuthController(IAuthService authService)
+        public AccountController(IAccountService accountService)
         {
-            _authService = authService;
+            _accountService = accountService;
         }
 
 
@@ -38,7 +39,7 @@ namespace Versta.API.Controllers
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User registeredUser = await _authService.Register(request.Email, 
+            User registeredUser = await _accountService.Register(request.Email, 
                                                                 request.Password, 
                                                                 request.UserName, 
                                                                 request.Role);
@@ -65,7 +66,7 @@ namespace Versta.API.Controllers
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User loggedInUser = await _authService.Login(request.Email, request.Password);
+            User loggedInUser = await _accountService.Login(request.Email, request.Password);
 
             if (loggedInUser != null)
             {

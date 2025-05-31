@@ -26,12 +26,12 @@ namespace Versta.Application.Services
     //using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
     //using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
-    public class AuthService : IAuthService
+    public class AccountService : IAccountService
     {
         private readonly VerstaDbContext _dbContext;
         private readonly IConfiguration _configuration;
         //private readonly IAccountRepo _accountRepo;
-        public AuthService(VerstaDbContext dbContext, 
+        public AccountService(VerstaDbContext dbContext, 
                             IConfiguration configuration)
                             //IAccountRepo accountRepo)
         {
@@ -42,7 +42,7 @@ namespace Versta.Application.Services
 
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<User> Register(string email, string password,
-            string username, string role)    // Task<User>
+            string username, string rolename)    // Task<User>
         {
             var hashedPassword = BCrypt.HashPassword(password);
             User userEntity = new User
@@ -51,16 +51,16 @@ namespace Versta.Application.Services
                 UserName = username,
                 Password = hashedPassword,
                 Email = email,
-                Role = role
+                Rolename = rolename
             };
             _dbContext.Users.Add(userEntity!);
             await _dbContext.SaveChangesAsync();
 
-            User user = new User(email, hashedPassword, role);
-            user.Id = userEntity.Id;
-            user.UserName = userEntity.UserName;
-            user.Role = userEntity.Role;
-            return user;
+            //User user = new User(email, hashedPassword, role);
+            //user.Id = userEntity.Id;
+            //user.UserName = userEntity.UserName;
+            //user.Role = userEntity.Role;
+            return userEntity;
         }
 
 
@@ -73,7 +73,7 @@ namespace Versta.Application.Services
             {
                 return null;
             }
-            User user = new User(email, password, userEntity.Role!); 
+            User user = new User(email, password, userEntity.Rolename!); 
             // if password is wrong
             if (user == null || BCrypt.Verify(password, userEntity.Password) == false)  
             {
@@ -89,7 +89,7 @@ namespace Versta.Application.Services
                         new Claim(ClaimTypes.Email, email),
                         new Claim(ClaimTypes.Name, user.UserName!),
                         //new Claim(ClaimTypes.Id, id),
-                        new Claim(ClaimTypes.Role, user.Role!)
+                        new Claim(ClaimTypes.Role, user.Rolename!)
                 }),
                 IssuedAt = DateTime.UtcNow,
                 Issuer = _configuration["JWT:Issuer"],
@@ -99,13 +99,13 @@ namespace Versta.Application.Services
             };
             //
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
-            user.IsActive = true;
-            user.Id = userEntity.Id;
-            user.Password = userEntity.Password;
-            user.UserName = userEntity.UserName;
-            user.Role = userEntity.Role;
-            return user;
+            //user.Token = tokenHandler.WriteToken(token);
+            //user.IsActive = true;
+            //user.Id = userEntity.Id;
+            //user.Password = userEntity.Password;
+            //user.UserName = userEntity.UserName;
+            //user.Role = userEntity.Role;
+            return userEntity;
         }
     }
 }

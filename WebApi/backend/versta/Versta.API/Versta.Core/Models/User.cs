@@ -26,8 +26,13 @@ namespace Versta.Core.Models
         [Column("email")]
         public string? Email { get; set; } = "";
 
-        [Column("role")]
-        public string? Role { get; set; } = "";
+        public static Role Roleentity { get; set; }
+
+        [Column("rolename")]
+        public string Rolename { get; set; } = Roleentity.Name;
+
+        //[Column("roleid")]
+        public int? RoleId { get; set; }
 
         [Column("isactive")]
         public bool? IsActive { get; set; } = false;
@@ -38,15 +43,13 @@ namespace Versta.Core.Models
         [Column("password")]
         public string? Password { get; set; } = "";   // PasswordHash
 
-        [Column("roleid")]
-        public int? RoleId { get; set; }
 
 
-        public User(string email, string password, string role) 
+        public User(string email, string password, string rolename) 
         {
             Email = email;
             Password = password;
-            Role = role;
+            Rolename = rolename;
         }
     }
 }

@@ -16,15 +16,21 @@ namespace Versta.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            // throw new NotImplementedException();
             builder.HasKey(u => u.Id);
+            //builder.HasData(new User[]);
+            //builder
+            //    .HasOne(u => u.Rolename)
+            //    .WithMany(r => r.)
+            //    .HasForeignKey(u => u.RoleId);
             builder.Property(u => u.UserName)
-                  .IsRequired();
+                .IsRequired();
             builder.Property(u => u.Email)
                 .IsRequired();
             builder.Property(u => u.IsActive)
                 .IsRequired();
-            builder.Property(u => u.Role)
+            builder.Property(u => u.Rolename)
+                .IsRequired();
+            builder.Property(u => u.RoleId)
                 .IsRequired();
             builder.Property(u => u.Password)
                 .IsRequired();

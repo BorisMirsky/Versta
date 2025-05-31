@@ -17,13 +17,13 @@
 //using BCrypt.Net;
 //using Microsoft.Extensions.Configuration;
 
-//namespace Versta.Application.Auth
+//namespace Versta.Application.Account
 //{
 //    using BCrypt.Net;
 //    using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
 //    using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
-//    public class AuthOptions
+//    public class AccountOptions
 //    {
 
 //        public const tokenHandler = new JwtSecurityTokenHandler();
