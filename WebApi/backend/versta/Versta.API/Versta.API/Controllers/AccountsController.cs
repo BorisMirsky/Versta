@@ -15,18 +15,18 @@ namespace Versta.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]  
-    public class AccountController : ControllerBase
+    public class AccountsController : ControllerBase
     {
-        private readonly IAccountService _accountService;
+        private readonly IAccountsService _accountsService;
 
-        public AccountController(IAccountService accountService)
+        public AccountsController(IAccountsService accountsService)
         {
-            _accountService = accountService;
+            _accountsService = accountsService;
         }
 
 
         [Route("Register")]
-        [HttpPost]    //   ->  [HttpPost("register")]
+        [HttpPost]   
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -39,7 +39,7 @@ namespace Versta.API.Controllers
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User registeredUser = await _accountService.Register(request.Email, 
+            User registeredUser = await _accountsService.RegisterAccount(request.Email, 
                                                                 request.Password, 
                                                                 request.UserName, 
                                                                 request.Role);
@@ -54,7 +54,7 @@ namespace Versta.API.Controllers
 
 
         [Route("Login")]
-        [HttpPost]   //   ->        [HttpPost("login")]
+        [HttpPost]  
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (String.IsNullOrEmpty(request.Email))
@@ -66,7 +66,7 @@ namespace Versta.API.Controllers
                 return BadRequest(new { message = "Password needs to entered" });
             }
 
-            User loggedInUser = await _accountService.Login(request.Email, request.Password);
+            User? loggedInUser = await _accountsService.LoginAccount(request.Email, request.Password);
 
             if (loggedInUser != null)
             {

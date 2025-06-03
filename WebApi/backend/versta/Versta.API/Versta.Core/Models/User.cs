@@ -21,29 +21,27 @@ namespace Versta.Core.Models
         public Guid? Id { get; set; }
 
         [Column("username")]
-        public string? UserName { get; set; } = "";
+        public string? UserName { get; set; }
 
         [Column("email")]
-        public string? Email { get; set; } = "";
+        public string Email { get; set; } = String.Empty;
 
-        public static Role Roleentity { get; set; }
+        public Role? Role { get; set; }
 
-        [Column("rolename")]
-        public string Rolename { get; set; } = Roleentity.Name;
+        [Column("role")]
+        public string Rolename { get; set; } = String.Empty;
 
-        //[Column("roleid")]
-        public int? RoleId { get; set; }
+        [Column("roleid")]
+        public int RoleId { get; set; } = 0;
 
         [Column("isactive")]
-        public bool? IsActive { get; set; } = false;
+        public bool IsActive { get; set; } = false;
 
         [Column("token")]
-        public string? Token { get; set; } = "";
+        public string Token { get; set; } = String.Empty;
 
         [Column("password")]
-        public string? Password { get; set; } = "";   // PasswordHash
-
-
+        public string Password { get; set; } = String.Empty;  // PasswordHash
 
         public User(string email, string password, string rolename) 
         {

@@ -12,7 +12,7 @@ export interface OrderRequest {
     specialNote?: string 
 }
 
-//name: string,
+
 export interface UserRegistrationRequest {
     email: string;
     password: string;
@@ -20,10 +20,12 @@ export interface UserRegistrationRequest {
     role: string;
 }
 
+
 export interface UserLoginRequest {
     email: string;
     password: string;
 }
+
 
 export interface FilterInterface {
     search: "";
@@ -155,7 +157,7 @@ export const loginUser = async (request: UserLoginRequest) => {
     let token: string = ""
     let role: string = "";
 
-    await fetch("http://localhost:5134/auth/login", {
+    await fetch("http://localhost:5134/accounts/login", {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -191,7 +193,7 @@ export const loginUser = async (request: UserLoginRequest) => {
 export const registerUser = async (request: UserRegistrationRequest) => {
     //console.log('request: ', request);
     const token = localStorage.getItem('token');
-    await fetch("http://localhost:5134/auth/register", {
+    await fetch("http://localhost:5134/accounts/register", {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -214,6 +216,6 @@ export const registerUser = async (request: UserRegistrationRequest) => {
 
 
 export const logOut = async () => {
-    await fetch("http://localhost:5134/auth/logout/");    //   особого смысла нет
+    await fetch("http://localhost:5134/accounts/logout/");    //   особого смысла нет
 }
 

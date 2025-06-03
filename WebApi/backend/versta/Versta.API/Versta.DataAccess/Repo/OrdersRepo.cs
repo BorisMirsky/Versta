@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Versta.Core.Models;
 using Versta.Core.Abstractions;
-
+using System.Linq.Expressions;
 
 
 
@@ -19,28 +19,29 @@ namespace Versta.DataAccess.Repo
 
         public async Task<List<Order>> Get(string? Search, string? SortItem, string? SortOrder)                                      
         {
-            //var ordersQuery = _context.Orders
-            //        .Where(o => string.IsNullOrWhiteSpace(Search) ||
-            //                o.CityFrom.ToLower().Contains(Search.ToLower()) ||
-            //                o.CityTo.ToLower().Contains(Search.ToLower())
-            //                );
 
-            //Expression<Func<Order, object>> selectorKey = SortItem?.ToLower() switch
-            //{
-            //    "date" => order => order.Date,
-            //    "cityto" => order => order.CityTo,
-            //    "cityfrom" => order => order.CityFrom,
-            //    _ => order => order.Id
-            //};
+            var ordersQuery = _context.Orders
+                    .Where(o => string.IsNullOrWhiteSpace(Search) ||
+                            o.CityFrom.ToLower().Contains(Search.ToLower()) ||
+                            o.CityTo.ToLower().Contains(Search.ToLower())
+                            );
 
-            //if (SortOrder == "desc")
-            //{
-            //    ordersQuery = ordersQuery.OrderByDescending(selectorKey);
-            //}
-            //else
-            //{
-            //    ordersQuery = ordersQuery.OrderBy(o => o.Date);
-            //}
+            Expression<Func<Order, object>> selectorKey = SortItem?.ToLower() switch
+            {
+                "date" => order => order.Date,
+                "cityto" => order => order.CityTo,
+                "cityfrom" => order => order.CityFrom,
+                _ => order => order.Id
+            };
+
+            if (SortOrder == "desc")
+            {
+                ordersQuery = ordersQuery.OrderByDescending(selectorKey);
+            }
+            else
+            {
+                ordersQuery = ordersQuery.OrderBy(o => o.Date);
+            }
 
             //var noteDtos = await ordersQuery
             //    .Select(o => new OrderDto(o.Id, o.CityFrom, o.AdressFrom,
@@ -48,29 +49,23 @@ namespace Versta.DataAccess.Repo
             //                                o.Date, o.SpecialNote))
             //    .ToListAsync(); // cancellationToken: ct);
 
-            //var orders = ordersQuery
-            //                         .Select(o => Order.Create(o.Id, o.CityFrom,
-            //                                o.AdressFrom,
-            //                                o.CityTo, o.AdressTo, o.Weight,
-            //                                o.Date, o.SpecialNote).order)
-            //                          .ToList();
+            var orders = await ordersQuery.Select(o => Order.Create(o.Id, o.CityFrom,
+                                            o.AdressFrom,
+                                            o.CityTo, o.AdressTo, o.Weight,
+                                            o.Date, o.SpecialNote).order)
+                                      .ToListAsync();
 
+            return orders;
 
-            //var orders = _context.Orders.Select(o => Order.Create(o.Id, o.CityFrom,
-            //                                o.AdressFrom,
-            //                                o.CityTo, o.AdressTo, o.Weight,
-            //                                o.Date, o.SpecialNote).order)
-            //                          .ToList();
-            //return orders;   
-            return await _context.Orders
-                .AsNoTracking()
-                .ToListAsync();
+            //return await _context.Orders
+            //    .AsNoTracking()
+            //    .ToListAsync();
         }
 
 
         public async Task<Order> Get(Guid id) 
         {
-            Order? ord =  await _context.Orders
+            Order? ord = await _context.Orders
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync(c => c.Id == id);
             return ord!;

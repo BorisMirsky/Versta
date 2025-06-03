@@ -9,9 +9,9 @@ using Versta.Core.Models; //.User;
 
 namespace Versta.Core.Abstractions
 {
-    public interface IAccountService
+    public interface IAccountsService
     {
-        Task<User> Login(string username, string password);
-        Task<User> Register(string email, string password, string username, string role);  
+        Task<User?> LoginAccount(string username, string password);
+        Task<User> RegisterAccount(string email, string password, string username, string role);  
     }
 }

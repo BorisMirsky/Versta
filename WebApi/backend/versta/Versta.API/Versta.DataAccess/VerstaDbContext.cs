@@ -6,6 +6,13 @@ namespace Versta.DataAccess
 {
     public class VerstaDbContext : DbContext
     {
+        // postgres ругался на формат datetime
+        static VerstaDbContext()
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        }
+
+
         public VerstaDbContext(DbContextOptions<VerstaDbContext> options)
                 : base(options)
         {}
@@ -14,10 +21,8 @@ namespace Versta.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

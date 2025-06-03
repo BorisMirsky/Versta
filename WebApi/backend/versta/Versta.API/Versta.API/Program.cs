@@ -21,7 +21,9 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddDbContext<VerstaDbContext>(options => options.UseNpgsql(connection));
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<IOrdersRepo, OrdersRepo>();
-builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAccountsService, AccountsService>();
+builder.Services.AddScoped<IAccountsRepo, AccountsRepo>();
+
 
 // Auth start
 builder.Services.AddAuthentication(opt =>

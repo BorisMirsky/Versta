@@ -12,7 +12,7 @@ namespace Versta.DataAccess.Configuration
         {
             builder.HasKey(o => o.Id);
             builder.Property(o => o.SpecialNote)
-                  .HasMaxLength(Order.MAX_NOTE_LEN);
+                .HasMaxLength(Order.MAX_NOTE_LEN);
             builder.Property(o => o.AdressFrom)
                 .IsRequired();
             builder.Property(o => o.CityFrom)
