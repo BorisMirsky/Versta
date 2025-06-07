@@ -8,7 +8,7 @@ export default function Error() {
             <br /><br /><br />
             <br /><br /><br />
             <br /><br /><br />
-            <h1>Нет такого заказа</h1>
+            <h1>Нет такой страницы</h1>
         </div >
     );
 }

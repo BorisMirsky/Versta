@@ -63,7 +63,6 @@ namespace Versta.Core.Models
             {
                 error = "Сократите примечание до 100 знаков";
             }
-            //var dateTimeOffset = DateTimeOffset.Parse(date.ToString(), null);
             var order = new Order(id, cityFrom, adressFrom, cityTo, adressTo,
                 weight, date, specialNote);
             return (order, error);

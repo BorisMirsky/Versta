@@ -1,23 +1,16 @@
 ﻿"use client"
 
-//registrationUser,
 import React from 'react';
 import { registerUser ,UserRegistrationRequest } from "@/app/Services/service";
-//import { getAllOrders } from "@/app/Services/service"; 
-//import { CreateOrderForm } from "@/app/Components/CreateOrderComponent";   
-//import { Order } from "@/app/Models/Order";
-import { FormProps, Button, Form, Input, Space } from 'antd';
-//import { useRouter } from 'next/navigation';
-//import moment from 'moment';
+import { Select, FormProps, Button, Form, Input, Space } from 'antd';
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-
 
 
 export default function Registration() {
     const [currentRole, setCurrentRole] = useState("");
     const [loading, setLoading] = useState(true);
+    const { Option } = Select;
 
 
     useEffect(() => {
@@ -31,9 +24,7 @@ export default function Registration() {
     }
 
     const onFinish: FormProps<UserRegistrationRequest>['onFinish'] = (values) => {
-        console.log('register values', values);
         registerUser(values);
-        //router.push("/allorders");
     }
 
     return (
@@ -41,6 +32,7 @@ export default function Registration() {
             {
                 (currentRole === 'admin') ? (
                     <div >
+                        <br></br>
                         <h1>Регистрация </h1>
                         <br></br>
                         <br></br>
@@ -61,7 +53,7 @@ export default function Registration() {
                                 <Form.Item<UserRegistrationRequest>
                                     label="Email"
                                     name="email"
-                                    rules={[{ required: true, message: 'Please input login!' }]}
+                                    rules={[{ required: true, message: 'Please input login(email)!' }]}
                                 >
                                     <Input />
                                 </Form.Item>
@@ -77,7 +69,7 @@ export default function Registration() {
                                 <Form.Item<UserRegistrationRequest>
                                     label="UserName"
                                     name="username"
-                                    rules={[{ required: true, message: 'Please input login!' }]}
+                                    rules={[{ required: true, message: 'Please input UserName!' }]}
                                 >
                                     <Input />
                                 </Form.Item>
@@ -85,9 +77,16 @@ export default function Registration() {
                                 <Form.Item<UserRegistrationRequest>
                                     label="Role"
                                     name="role"
-                                    rules={[{ required: true, message: 'Please input password!' }]}
+                                    rules={[{ required: true}]}
                                 >
-                                    <Input />
+                                        <Select
+                                            onChange={(value) => {
+                                                alert(value)
+                                            }}
+                                            placeholder="Выбор роли">
+                                            <Option value="manager">manager</Option>
+                                            <Option value="visitor">visitor</Option>
+                                        </Select>
                                 </Form.Item>
 
                                 <Form.Item label={null}>
@@ -109,18 +108,11 @@ export default function Registration() {
                         )}
                         <br></br>
                         <br></br>
-                        <p>
-                            <Link
-                                href={{
-                                    pathname: "login"
-                                }}
-                                legacyBehavior={true}
-                            >Войти под своим логином
-                            </Link>
-                        </p>
                     </div >
                 ) : (
-                    <div><br/><br/><br/><h2>Тут нет ничего</h2></div>
+                        <div>
+                            <h1>Регистрируют только админы</h1>
+                        </div>
                 )
             }
         </div>

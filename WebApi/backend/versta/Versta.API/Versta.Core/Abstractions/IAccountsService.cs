@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Versta.Core.Models; //.User;
-
+﻿using Versta.Core.Models; 
 
 
 namespace Versta.Core.Abstractions

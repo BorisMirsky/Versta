@@ -7,35 +7,31 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Versta.DataAccess.Scripts;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-//builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseInMemoryDatabase("UsersList"));
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 builder.Services.AddDbContext<VerstaDbContext>(options => options.UseNpgsql(connection));
+builder.Services.AddControllers();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<IOrdersRepo, OrdersRepo>();
 builder.Services.AddScoped<IAccountsService, AccountsService>();
 builder.Services.AddScoped<IAccountsRepo, AccountsRepo>();
+builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
 
-
-// Auth start
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;          
+    opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(opt =>
-{                           // for development only
+{                          
     opt.RequireHttpsMetadata = false;
     opt.SaveToken = true;
+    opt.IncludeErrorDetails = true;
     opt.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
@@ -45,31 +41,36 @@ builder.Services.AddAuthentication(opt =>
         ValidIssuer = builder.Configuration["JWT:Issuer"]!,
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"]!,
-        ValidateLifetime = true,
     };
 });
-// Auth stop
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(corsBuilder =>
+        corsBuilder.WithOrigins("http://localhost:3000")
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials());
+});
+builder.Services.AddHealthChecks();
+builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
-var app = builder.Build();
 
+var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-
 app.UseCors(x =>
 {
     x.WithHeaders().AllowAnyHeader();
     x.WithOrigins("http://localhost:3000");
     x.WithMethods().AllowAnyMethod();
 });
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

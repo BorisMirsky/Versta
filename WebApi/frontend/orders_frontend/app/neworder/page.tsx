@@ -2,9 +2,6 @@
 
 import React from 'react';
 import { createOrder, OrderRequest } from "@/app/Services/service";   
-//import { getAllOrders } from "@/app/Services/service"; 
-//import { CreateOrderForm } from "@/app/Components/CreateOrderComponent";   
-//import { Order } from "@/app/Models/Order";
 import { FormProps, Button, Form, Input, InputNumber, DatePicker, Space } from 'antd';
 import { useRouter } from 'next/navigation'; 
 import Title from "antd/es/typography/Title";
@@ -14,7 +11,6 @@ import { useEffect, useState } from "react";
 
 export default function NewOrder() {
     const [currentRole, setCurrentRole] = useState("");
-    //console.log('token:', token, localStorage.getItem('username'));
     const router = useRouter();
     const [loading, setLoading] = useState(true);
 
@@ -33,7 +29,6 @@ export default function NewOrder() {
 
     const onFinish: FormProps<OrderRequest>['onFinish'] = (values) => {
         createOrder(values);
-        //console.log('values ', values);
         router.push("/allorders");       
     }
 

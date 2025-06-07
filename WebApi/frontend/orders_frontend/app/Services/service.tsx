@@ -61,9 +61,11 @@ export const getAllOrders = async (filter: FilterInterface) => {
                 sortOrder: filter?.sortOrder,
             },
     })
-        .then((response) => {
+        .then(response => {
             if (!response.ok) {
-                window.location.href = 'noauthorized';
+                console.log('token ', '\n', token   );
+                //console.log(response);
+                //window.location.href = 'noauthorized';
             }
             else {
                 return response.json();
@@ -76,7 +78,6 @@ export const getAllOrders = async (filter: FilterInterface) => {
             console.log('Error: ', err);
         });
     return response;
-
 };
 
 
@@ -85,13 +86,15 @@ export const getOneOrder = async (id: string) => {
     const response = await fetch("http://localhost:5134/orders/" + id, {
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`
         },
         method: 'GET'
     })
         .then((response) => {
             if (!response.ok) {
-                window.location.href = 'error';
+                //console.log('!response.ok ', '\n', token, '\n');
+                console.log('!response.status ', '\n', response.headers);
+                //window.location.href = 'error';
             }
             else {
                 return response.json();
@@ -108,7 +111,7 @@ export const getOneOrder = async (id: string) => {
 
 
 export const createOrder = async (orderRequest: OrderRequest) => {
-    console.log('orderRequest ', orderRequest)
+    //console.log('orderRequest ', orderRequest)
     const token = localStorage.getItem('token');
     await fetch("http://localhost:5134/orders/", {
         method: 'POST',
@@ -150,9 +153,8 @@ export const deleteOrder = async (id: string) => {
 }
 
 
-// privacy
+
 export const loginUser = async (request: UserLoginRequest) => {
-    //const [isOpen, setOpen] = useState(false);
     let username: string = "";
     let token: string = ""
     let role: string = "";
@@ -168,16 +170,14 @@ export const loginUser = async (request: UserLoginRequest) => {
         .then((response) => {
             if (!response.ok) {
                 alert("Неверные логин или пароль")
-                //ModalComponent(true);
             }
             else {
                 return response.json();
             }
         })
         .then(data => {
-            //console.log('Data: ', data);
             username = data['userName'];
-            role = data['role'];
+            role = data['rolename'];
             token = data['token'];
             localStorage.setItem('username', username);
             localStorage.setItem('role', role);
@@ -191,31 +191,31 @@ export const loginUser = async (request: UserLoginRequest) => {
    
 
 export const registerUser = async (request: UserRegistrationRequest) => {
-    //console.log('request: ', request);
     const token = localStorage.getItem('token');
     await fetch("http://localhost:5134/accounts/register", {
         method: 'POST',
         mode: 'cors',
+        //credentials: true,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(request)
     }).then(response => {
-        return response.json();
-    }).then(response => {
-        if (response.message == "User registration unsuccessful") {
-            alert("User registration unsuccessful")
+        if (!response.ok) {
+            alert("Ошибка регистрации");
+            console.log("Ошибка регистрации");
         }
         else {
-            alert("Регистрация прошла успешно\nТеперь надо залогиниться")
-            window.location.href = 'login';
+            alert("Регистрация прошла успешно")
+            //window.location.href = 'login';
         }
+    }).catch(err => {
+        console.log('registerError: ', err);
     }); 
 }
 
 
 export const logOut = async () => {
-    await fetch("http://localhost:5134/accounts/logout/");    //   особого смысла нет
+    await fetch("http://localhost:5134/accounts/logout/");    
 }
-

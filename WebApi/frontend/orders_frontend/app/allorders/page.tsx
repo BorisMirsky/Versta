@@ -78,11 +78,6 @@ export default function AllOrders() {
             dataIndex: 'date',
             key: 'date',
         }
-        //{
-        //    title: 'Special Note',
-        //    dataIndex: 'specialnote',
-        //    key: 'specialnote',
-        //}
     ]
 
 
@@ -107,18 +102,16 @@ export default function AllOrders() {
         adressto: order.adressTo,
         weight: order.weight,
         date: moment(order.date).format("DD/MM/YYYY") 
-        //specialnote: order.specialnote
     })); 
 
-
+    //|| 'visitor'
     return (
         <div>
             {
-                (currentRole == 'manager' || currentRole == 'visitor') ? (
+                (currentRole === 'manager') ? (
         <div>
-            <br></br><br></br><br></br><br></br>
+            <br></br><br></br><br></br>
             <h1>Все заказы</h1>
-            <br></br><br></br><br></br><br></br>
             <br></br><br></br><br></br><br></br>
             {loading ? (
                 <Title>Loading ...</Title>

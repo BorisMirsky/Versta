@@ -5,7 +5,7 @@ import { loginUser, UserLoginRequest } from "@/app/Services/service";   //loginR
 import { FormProps, Button, Form, Input, Space } from 'antd';
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+//import Link from "next/link";
 //import ModalComponent from '../Components/ModalComponent';
 
 
@@ -90,18 +90,10 @@ export default function Login() {
             {}
             <br></br>
             <br></br>
-            <p>
-                <Link
-                    href={{
-                        pathname: "registration"
-                    }}
-                    legacyBehavior={true}
-                >Регистрация
-                </Link>
-            </p>
                     </div >
-                ) : (
-                    <div><br /><br /><br /><h2>Тут нет ничего</h2></div>
+                )
+                    : (
+                        <div></div>
                 )
             }
         </div>

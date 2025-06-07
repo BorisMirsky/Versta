@@ -40,20 +40,3 @@ namespace Versta.DataAccess.Configuration
         }
     }
 }
-
-
-//builder.HasData(
-//new IdentityRole("Admin")
-//{
-//    NormalizedName = "ADMIN"
-//},
-//new IdentityRole("Manager")
-//{
-//    NormalizedName = "MANAGER"
-//},
-//new IdentityRole("Visitor")
-//{
-//    NormalizedName = "VISITOR"
-//}
-//);
-//}
