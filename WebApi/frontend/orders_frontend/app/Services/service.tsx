@@ -28,26 +28,29 @@ export interface UserLoginRequest {
 
 
 export interface FilterInterface {
-    search: "";
-    sortItem: "cityfrom";
-    sortOrder: ""
+    search: string;
+    sortItem: string;
+    sortOrder: string; 
 }
 
 
 export interface CurrentUser {
-    id: ""; 
-    username: "";
-    role: "";   
+    id: string; 
+    username: string; 
+    role: string;    
     isactive: boolean;
-    token: "";
-    password: "";   
+    token: string; 
+    password: string;
 }
+
 
 
 
 // CRUD
 export const getAllOrders = async (filter: FilterInterface) => {
+    //console.log('filter: ', filter.search);
     const token = localStorage.getItem('token');
+
     const response = await fetch("http://localhost:5134/orders", {
             headers: {
                 'Content-type': 'application/json',
@@ -56,15 +59,14 @@ export const getAllOrders = async (filter: FilterInterface) => {
             method: 'GET',
             mode: 'cors',
             params: {
-                search: filter?.search,
-                sortItem: filter?.sortItem,
-                sortOrder: filter?.sortOrder,
-            },
+                search: filter?.search, 
+                sortItem: filter?.sortItem, 
+                sortOrder: filter?.sortOrder
+            }
     })
         .then(response => {
             if (!response.ok) {
                 console.log('token ', '\n', token   );
-                //console.log(response);
                 //window.location.href = 'noauthorized';
             }
             else {

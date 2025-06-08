@@ -2,34 +2,31 @@
 using Versta.Core.Models;
 using Versta.Core.Abstractions;
 using System.Linq.Expressions;
-
+using System.Diagnostics;
 
 
 namespace Versta.DataAccess.Repo
 {
-    public class OrdersRepo : IOrdersRepo
+    public class OrdersRepo(VerstaDbContext context) : IOrdersRepo
     {
 
-        private readonly VerstaDbContext _context;
-
-        public OrdersRepo(VerstaDbContext context)
-        {
-            _context = context;
-        }
+        private readonly VerstaDbContext _context = context;
 
         public async Task<List<Order>> Get(string? Search, string? SortItem, string? SortOrder)                                      
         {
-
+            //Debug.WriteLine("Search");
+            //Debug.WriteLine("");
+            //Debug.WriteLine("");
+            //Debug.WriteLine(Search);
             var ordersQuery = _context.Orders
                     .Where(o => string.IsNullOrWhiteSpace(Search) ||
-                            o.CityFrom.ToLower().Contains(Search.ToLower()) ||
-                            o.CityTo.ToLower().Contains(Search.ToLower())
-                            );
+                            o.CityFrom.ToLower().Contains(Search.ToLower())); 
+                            //|| o.CityTo.ToLower().Contains(Search.ToLower()));
 
             Expression<Func<Order, object>> selectorKey = SortItem?.ToLower() switch
             {
                 "date" => order => order.Date,
-                "cityto" => order => order.CityTo,
+                //"cityto" => order => order.CityTo,
                 "cityfrom" => order => order.CityFrom,
                 _ => order => order.Id
             };
@@ -40,26 +37,15 @@ namespace Versta.DataAccess.Repo
             }
             else
             {
-                ordersQuery = ordersQuery.OrderBy(o => o.Date);
+                ordersQuery = ordersQuery.OrderBy(selectorKey); // o => o.Date);
             }
 
-            //var noteDtos = await ordersQuery
-            //    .Select(o => new OrderDto(o.Id, o.CityFrom, o.AdressFrom,
-            //                                o.CityTo, o.AdressTo, o.Weight,
-            //                                o.Date, o.SpecialNote))
-            //    .ToListAsync(); // cancellationToken: ct);
-
             var orders = await ordersQuery.Select(o => Order.Create(o.Id, o.CityFrom,
-                                            o.AdressFrom,
-                                            o.CityTo, o.AdressTo, o.Weight,
-                                            o.Date, o.SpecialNote).order)
-                                      .ToListAsync();
+                                                o.AdressFrom, o.CityTo, o.AdressTo,
+                                                o.Weight, o.Date, o.SpecialNote).order)
+                                          .ToListAsync();
 
             return orders;
-
-            //return await _context.Orders
-            //    .AsNoTracking()
-            //    .ToListAsync();
         }
 
 

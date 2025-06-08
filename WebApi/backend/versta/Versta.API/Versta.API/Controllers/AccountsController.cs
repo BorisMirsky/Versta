@@ -14,16 +14,10 @@ namespace Versta.API.Controllers
 
     [ApiController]
     [Route("[controller]")]  
-    public class AccountsController : ControllerBase
+    public class AccountsController(IAccountsService accountsService) : ControllerBase
     {
 
-        private readonly IAccountsService _accountsService;
-
-        public AccountsController(IAccountsService accountsService)
-        {
-            _accountsService = accountsService;
-        }
-
+        private readonly IAccountsService _accountsService = accountsService;
 
         [Route("Register")]
         [HttpPost]   

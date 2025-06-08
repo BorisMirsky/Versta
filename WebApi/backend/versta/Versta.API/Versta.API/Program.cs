@@ -44,14 +44,14 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(corsBuilder =>
-        corsBuilder.WithOrigins("http://localhost:3000")
-                   .AllowAnyMethod()
-                   .AllowAnyHeader()
-                   .AllowCredentials());
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddDefaultPolicy(corsBuilder =>
+//        corsBuilder.WithOrigins("http://localhost:3000")
+//                   .AllowAnyMethod()
+//                   .AllowAnyHeader()
+//                   .AllowCredentials());
+//});
 builder.Services.AddHealthChecks();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();

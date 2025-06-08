@@ -4,13 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Versta.Application.Services
 {
-    public class OrdersService : IOrdersService
+    public class OrdersService(IOrdersRepo ordersRepo) : IOrdersService
     {
-        private readonly IOrdersRepo _ordersRepo;
-        public OrdersService(IOrdersRepo ordersRepo)
-        {
-            _ordersRepo = ordersRepo;
-        }
+        
+        private readonly IOrdersRepo _ordersRepo = ordersRepo;
 
         public async Task<List<Order>> GetAllOrders(string? Search, string? SortItem, string? SortOrder)
         {

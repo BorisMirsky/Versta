@@ -12,23 +12,21 @@ namespace Versta.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OrdersController : ControllerBase
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public class OrdersController(IOrdersService ordersService) : ControllerBase
     {
 
-        private readonly IOrdersService _ordersService;
-
-        public OrdersController(IOrdersService ordersService)
-        {
-            _ordersService = ordersService;
-        }
-
+        private readonly IOrdersService _ordersService = ordersService;
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "manager, visitor")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "manager, visitor")]
         public async Task<ActionResult<List<OrdersResponse>>> GetAllOrders([FromQuery] OrdersSearchRequest request)
         {
             var orders = await _ordersService.GetAllOrders(request?.Search, request?.SortItem, request?.SortOrder);
+            Debug.WriteLine("Search");
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+            Debug.WriteLine(request?.Search);
             var responce = orders.Select(o => new OrdersResponse(o.Id, o.CityFrom,
                                          o.AdressFrom, o.CityTo, o.AdressTo,
                                          o.Weight, o.Date, o.SpecialNote));

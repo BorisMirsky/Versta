@@ -33,7 +33,6 @@ namespace Versta.DataAccess.Repo
             return userEntity;
         }
 
-
         public async Task<User?> Login(string email, string password)
         {
             User? userEntity = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);

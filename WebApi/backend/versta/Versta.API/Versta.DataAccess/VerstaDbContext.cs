@@ -4,18 +4,13 @@ using Versta.Core.Models;
 
 namespace Versta.DataAccess
 {
-    public class VerstaDbContext : DbContext
+    public class VerstaDbContext(DbContextOptions<VerstaDbContext> options) : DbContext(options)
     {
         // postgres ругался на формат datetime
         static VerstaDbContext()
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
-
-
-        public VerstaDbContext(DbContextOptions<VerstaDbContext> options)
-                : base(options)
-        {}
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }

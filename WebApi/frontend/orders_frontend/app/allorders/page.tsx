@@ -9,7 +9,6 @@ import "../globals.css";
 import Title from "antd/es/typography/Title";
 import moment from 'moment';
 import Filters from '../Components/Filters';
-import SelectComponent from '../Components/SelectComponent';
 
 
 export default function AllOrders() {
@@ -17,7 +16,7 @@ export default function AllOrders() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({
-        search: "",
+        search: "sityFrom",
         sortItem: "date",
         sortOrder: "desc",
     });
@@ -119,7 +118,6 @@ export default function AllOrders() {
                     <div>
                         <Filters filter={filter} setFilter={setFilter} />
                         <br></br>
-                        <SelectComponent filter={filter} setFilter={setFilter} />
                         <br></br><br></br><br></br><br></br>
                 <Table
                     dataSource={data}
