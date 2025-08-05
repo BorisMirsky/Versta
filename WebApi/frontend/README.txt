@@ -12,8 +12,8 @@ customize default import alias - no
      Ставится antd
 npm install antd --save
 
+PowerShell разработчика: 'npm run dev'.
 
-    Чтобы завелся запуск npm run dev надо в терминале (PowerShell разработччика):
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 
 
@@ -34,22 +34,4 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 Авторизация с JWT. Сохранение в LocalStorage (не лучший вариант, но тут ок).
 
 
-##############################################################################
-
-
-   Авторизация с помощью JWT-токенов в клиенте JavaScript
-   https://metanit.com/sharp/aspnet6/13.3.php
-   ВАЖНЫЙ КУСОК, В ЛЮБОМ СЛУЧАЕ НАДО ИСПОЛЬЗОВАТЬ:
-           // изменяем содержимое и видимость блоков на странице
-           document.getElementById("userName").innerText = data.username;
-
-Вся инфо (токен, содержащий клеймы - строки с данными) должна класться в куки.
-
-https://www.youtube.com/watch?v=HGYEzLQ9mbw
-на 5.00 - сделать также !
-
-16.07 !
-
-НАЧИНАЯ С 19.30 - как прикрутить токен к реквесту при обращении к странице
-с атрибутом [Authorize]. !!!
 

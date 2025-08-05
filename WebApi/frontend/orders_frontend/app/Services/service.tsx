@@ -48,32 +48,37 @@ export interface CurrentUser {
 
 // CRUD
 export const getAllOrders = async (filter: FilterInterface) => {
-    //console.log('filter: ', filter.search);
     const token = localStorage.getItem('token');
 
     const response = await fetch("http://localhost:5134/orders", {
             headers: {
-                'Content-type': 'application/json',
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization" ,
+                "Access-Control-Allow-Credentials": 'true',
+                "Access-Control-Allow-Methods": 'GET',
                 'Authorization': `Bearer ${token}`,
             },
             method: 'GET',
             mode: 'cors',
-            params: {
-                search: filter?.search, 
-                sortItem: filter?.sortItem, 
-                sortOrder: filter?.sortOrder
-            }
+            //params: {
+            //    search: filter?.search, 
+            //    sortItem: filter?.sortItem, 
+            //    sortOrder: filter?.sortOrder
+            //}
     })
         .then(response => {
             if (!response.ok) {
-                console.log('token ', '\n', token   );
-                //window.location.href = 'noauthorized';
+                console.log('token ', token   );
+                console.log('filter ', filter); 
+                window.location.href = 'noauthorized';
             }
             else {
                 return response.json();
             }
         })
         .then(data => {
+            console.log('data: ', data);
             return data;
         })
         .catch(err => {
@@ -90,13 +95,12 @@ export const getOneOrder = async (id: string) => {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        method: 'GET'
+        method: 'GET',
+        mode: 'cors'
     })
         .then((response) => {
             if (!response.ok) {
-                //console.log('!response.ok ', '\n', token, '\n');
-                console.log('!response.status ', '\n', response.headers);
-                //window.location.href = 'error';
+                window.location.href = 'error';
             }
             else {
                 return response.json();
@@ -113,14 +117,14 @@ export const getOneOrder = async (id: string) => {
 
 
 export const createOrder = async (orderRequest: OrderRequest) => {
-    //console.log('orderRequest ', orderRequest)
     const token = localStorage.getItem('token');
-    await fetch("http://localhost:5134/orders/", {
+    await fetch("http://localhost:5134/orders", {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`
         },
+        mode: 'cors',
         body: JSON.stringify(orderRequest)
     }).catch(error => console.log("createOrderError: ", error));
 }
@@ -134,12 +138,12 @@ export const updateOrder = async (id: string, orderRequest: OrderRequest) => {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
+        mode: 'cors',
         body: JSON.stringify(orderRequest)
     });
 }
 
 
-//const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 export const deleteOrder = async (id: string) => {
     const token = localStorage.getItem('token');
@@ -148,9 +152,9 @@ export const deleteOrder = async (id: string) => {
         headers: {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`,
-        }
+        },
+        mode: 'cors'
     });
-    //await delay(3000);
     window.location.href = 'allorders'; 
 }
 
@@ -210,7 +214,7 @@ export const registerUser = async (request: UserRegistrationRequest) => {
         }
         else {
             alert("Регистрация прошла успешно")
-            //window.location.href = 'login';
+            window.location.href = 'login';
         }
     }).catch(err => {
         console.log('registerError: ', err);

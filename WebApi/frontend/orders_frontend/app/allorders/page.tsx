@@ -81,8 +81,10 @@ export default function AllOrders() {
 
 
     useEffect(() => {
-        const role = localStorage.getItem("role") || "";
-        setCurrentRole(role);
+        //console.log("AllOrders useEffect ");
+        //const role = localStorage.getItem("role") || "";
+        //console.log("AllOrders role ", role)
+        setCurrentRole("");
         const getOrders = async () => {
             const responce = await getAllOrders(filter);
             setLoading(false);
@@ -107,7 +109,7 @@ export default function AllOrders() {
     return (
         <div>
             {
-                (currentRole === 'manager') ? (
+                (currentRole === '') ? (          //manager
         <div>
             <br></br><br></br><br></br>
             <h1>Все заказы</h1>

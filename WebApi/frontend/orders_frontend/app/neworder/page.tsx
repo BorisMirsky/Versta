@@ -18,7 +18,11 @@ export default function NewOrder() {
     useEffect(() => {
         setLoading(false);
         const role = localStorage.getItem("role") || "";
+        const name = localStorage.getItem("username") || "";
         setCurrentRole(role);
+        console.log("NewOrder role ", role)
+        console.log("NewOrder name ", name)
+
     }, []);  
 
 

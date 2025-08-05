@@ -22,7 +22,7 @@ export default function RegistrationComponent() {
         <div >
             {
                 (currentRole === 'admin') ? (
-                    <h4><Link href="/registration">Регистрация</Link></h4>
+                    <h4><Link href="/registration">Регистрация нового пользователя</Link></h4>
                 ) : (
                     <div></div>
                 )
