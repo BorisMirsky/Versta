@@ -78,7 +78,7 @@ export const getAllOrders = async (filter: FilterInterface) => {
             }
         })
         .then(data => {
-            console.log('data: ', data);
+            //console.log('data: ', data);
             return data;
         })
         .catch(err => {

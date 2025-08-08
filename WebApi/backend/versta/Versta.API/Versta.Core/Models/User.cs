@@ -11,7 +11,7 @@ using System.Security.Permissions;
 
 namespace Versta.Core.Models
 {
-    [Table("users")]
+    [Table("Users")]
     public class User
     {
         public User()
@@ -27,7 +27,7 @@ namespace Versta.Core.Models
         [Column("email")]
         public string Email { get; set; } = String.Empty;
 
-        public Role? Role { get; set; }
+        //public Role? Role { get; set; }
 
         [Column("role")]
         public string Rolename { get; set; } = String.Empty;

@@ -14,9 +14,9 @@ namespace Versta.DataAccess.Configuration
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.HasKey(r => r.Id);
-            builder
-                .HasMany(r => r.Users)
-                .WithOne(u => u.Role);
+            //builder
+            //    .HasMany(r => r.Users)
+            //    .WithOne(u => u.Role);
             builder
                 .Property(r => r.Name)
                 .IsRequired();

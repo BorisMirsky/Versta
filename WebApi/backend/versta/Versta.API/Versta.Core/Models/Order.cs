@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Versta.Core.Models
 {
-    [Table("orders")]
+    [Table("Orders")]
     public class Order
     {
         public Order() 

@@ -11,10 +11,10 @@ namespace Versta.DataAccess.Configuration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(u => u.Id);
-            builder
-                .HasOne(u => u.Role)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RoleId);
+            //builder
+            //    .HasOne(u => u.Role)
+            //    .WithMany(r => r.Users)
+            //    .HasForeignKey(u => u.RoleId);
             builder.Property(u => u.UserName)
                 .IsRequired();
             builder.Property(u => u.Email)

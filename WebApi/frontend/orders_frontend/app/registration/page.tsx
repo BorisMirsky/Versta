@@ -30,7 +30,7 @@ export default function Registration() {
     return (
         <div>
             {
-                (currentRole === 'admin') ? (
+                (currentRole !== 'admin666') ? (
                     <div >
                         <br></br>
                         <h1>Регистрация </h1>
@@ -80,9 +80,6 @@ export default function Registration() {
                                     rules={[{ required: true}]}
                                 >
                                         <Select
-                                            onChange={(value) => {
-                                                alert(value)
-                                            }}
                                             placeholder="Выбор роли">
                                             <Option value="manager">manager</Option>
                                             <Option value="visitor">visitor</Option>

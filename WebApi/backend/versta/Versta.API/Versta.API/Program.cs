@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 builder.Services.AddDbContext<VerstaDbContext>(options => options.UseNpgsql(connection));
+//builder.Services.AddDbContext<VerstaDbContext>(options => options.UseSqlite(connection));
 builder.Services.AddControllers();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<IOrdersRepo, OrdersRepo>();
