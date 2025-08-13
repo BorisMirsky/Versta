@@ -19,50 +19,30 @@ Ant design
 - visitor (только просмотр данных)
 - manager (весь CRUD)
 
-По умолчанию в файле контекста в Versta.DataAccess создаётся БД с пользователями, по одному на роль:
-admin@gmail.com, adminpassword
-manager@gmail.com, managerpassword
-visitor@gmail.com, visitorpassword
+По умолчанию в файле контекста в Versta.DataAccess создаётся БД PostgreSQL с данными пользователей, по одному на роль:
+[admin@gmail.com, adminpassword], 
+[manager@gmail.com, managerpassword],
+[visitor@gmail.com, visitorpassword].
 
-Чтобы заработало, надо добавить свой пароль на БД PostgreSQL в 'Versta.API.appsettings.json/appsettings.Development.json'
+После клонирования пользователю надо добавить свой пароль 
+на БД PostgreSQL в 'Versta.API.appsettings.json/appsettings.Development.json'.
 
 
 
-########       TODO      ########                                      
+
+
+                                  TODO                                     
 
                            
-1) AllOrders 'поиск & сортировка' отвалились!
-   На бекенде (Swagger) - работают корректно.
+1) Убрал отношения между сущностями Roles & Users.
+   Подумать и может быть вернуть.
 
-2) Убрал отношение между сущностями Roles & Users.
-   Вернуть.
+2) Корректно, но неидеально отдаёт страницы при некоторых переходах.
 
-3) Корректно, но неидеально отдаёт страницы при CRUD операциях и переходах.
+3) Добавить валидацию вводимых данных, хотя бы только на фронте
 
-4) При регистрации добавить проверку '@' в шаблоне
+4) Добавить тесты
 
-5) добавить тесты
-
-6) добавить Cancellation token
-
-
-
-
-
-
-            Убрать потом
-
-########   логины\пароли для существующих юзеров в ordersdb    ###################
-
-Bardak666^&*       password for postgres db
-
-admin@gmail.com, adminpassword                                    OK!
-visitor2gmail.com, visitor2password, visitor2name, visitor        ?
-manager1@gmail, manager1password, manager1name, manager           NO!
-petrov@gmail.com, petrovpassword, petrov, manager                 OK!
-chort@gandon.ru, chortpassword, Chort, visitor
-
-
-
+5) Добавить Cancellation token и, может быть, кнопку 'Отменить'.
 
 
