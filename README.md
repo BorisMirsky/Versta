@@ -6,6 +6,6 @@ CRUD operations (test task for Versta software company)
 Создано в двух вариантах:
 
 1) .Net Core MVC (Razor)
-2) .Net Core Web API + Next js typescript
+2) .Net Core Web API + Nextjs typescript + antd
 
 Подробности внутри проектов в своих README
